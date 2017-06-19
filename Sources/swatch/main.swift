@@ -1,0 +1,3 @@
+import StopWatch
+
+print(foo())
