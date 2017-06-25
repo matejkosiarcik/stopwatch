@@ -1,10 +1,11 @@
-// swift-tools-version:3.0
+// swift-tools-version:4.0
 
 import PackageDescription
 
 let package = Package(name: "StopWatch")
 
 package.targets = [
-    Target(name: "swatch", dependencies: ["StopWatch"]),
-    Target(name: "StopWatch", dependencies: []),
+    .target(name: "swatch", dependencies: ["StopWatch"]), // executable
+    .target(name: "StopWatch", dependencies: []), // library
+    .testTarget(name: "StopWatchTests", dependencies: ["StopWatch"]),
 ]
