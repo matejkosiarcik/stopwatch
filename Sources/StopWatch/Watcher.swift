@@ -7,14 +7,14 @@ import Foundation
 
 public final class Watcher {
     private let onUpdate: (Interval) -> Void
+    private let updateInterval: TimeInterval
     private var laps = [Date]()
     private var isActive = false
-    private let updateInterval: TimeInterval
 
     // MARK: De/Init
     public init(each interval: TimeInterval = 0.001, onUpdate: @escaping (Interval) -> Void) {
-        self.onUpdate = onUpdate
         self.updateInterval = interval
+        self.onUpdate = onUpdate
     }
 
     deinit {
