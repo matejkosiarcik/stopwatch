@@ -51,13 +51,15 @@ func setupStandardInput() {
 
 func main() {
     setupStandardInput()
-    let watcher = Watcher(each: 0.005) { print(abs($0.cumulative).formatted, terminator: "\r"); fflush(stdout) }
+    var last = Interval(cumulative: 0, lapped: 0)
+    let watcher = Watcher(each: 0.005) { last = $0; print(abs($0.cumulative).formatted, terminator: "\r"); fflush(stdout) }
     watcher.start()
     loop: while true {
         guard let input = readCharacter(from: .standardInput) else { continue }
         shell("clear")
         if input == .esc { break loop }
     }
+    print(abs(last.cumulative).formatted)
 }
 
 main()

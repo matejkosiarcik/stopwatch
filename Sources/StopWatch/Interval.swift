@@ -8,6 +8,11 @@ import Foundation
 public struct Interval {
     public let cumulative: TimeInterval
     public let lapped: TimeInterval
+
+    public init (cumulative: TimeInterval, lapped: TimeInterval) {
+        self.cumulative = cumulative
+        self.lapped = lapped
+    }
 }
 
 extension Interval: Equatable {
