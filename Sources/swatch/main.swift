@@ -10,22 +10,6 @@ extension Character {
     static let esc = Character("\u{1B}")
 }
 
-// setup unbuffered standard input
-func setupStandardInput() {
-    setbuf(stdin, nil)
-    setvbuf(stdin, nil, _IONBF, 0)
-    var input = termios()
-    tcgetattr(STDIN_FILENO, &input)
-    input.c_lflag = tcflag_t(Int32(input.c_lflag) & ~ICANON)
-    tcsetattr(STDIN_FILENO, TCSANOW, &input)
-}
-
-func readCharacter(from file: FileHandle) -> Character? {
-    let data = file.readData(ofLength: 1)
-    let string = String(data: data, encoding: .ascii)
-    return string?.characters.first
-}
-
 extension TimeInterval {
     var formatted: String {
         let interval = Int(self * 1000)
@@ -47,6 +31,22 @@ func shell(_ command: String) -> Int32 {
     task.launch()
     task.waitUntilExit()
     return task.terminationStatus
+}
+
+func readCharacter(from file: FileHandle) -> Character? {
+    let data = file.readData(ofLength: 1)
+    let string = String(data: data, encoding: .ascii)
+    return string?.characters.first
+}
+
+// setup unbuffered standard input
+func setupStandardInput() {
+    setbuf(stdin, nil)
+    setvbuf(stdin, nil, _IONBF, 0)
+    var input = termios()
+    tcgetattr(STDIN_FILENO, &input)
+    input.c_lflag = tcflag_t(Int32(input.c_lflag) & ~ICANON)
+    tcsetattr(STDIN_FILENO, TCSANOW, &input)
 }
 
 func main() {
