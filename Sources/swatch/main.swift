@@ -2,6 +2,7 @@
 // main.swift
 // Copyright © 2017 Matej Kosiarcik. All rights reserved.
 //
+
 import Foundation
 import StopWatch
 
