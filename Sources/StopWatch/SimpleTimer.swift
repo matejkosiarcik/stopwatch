@@ -1,11 +1,11 @@
 //
-// SingleLapTimer.swift
+// SimpleTimer.swift
 // Copyright © 2017 Matej Kosiarcik. All rights reserved.
 //
 
 import Foundation
 
-public final class SingleLapTimer {
+public final class SimpleTimer {
     private let onUpdate: (TimeInterval) -> Void
     private let updateInterval: TimeInterval
     private var isActive = false
@@ -23,7 +23,7 @@ public final class SingleLapTimer {
 }
 
 // MARK: - Updating
-extension SingleLapTimer {
+extension SimpleTimer {
     private func update() {
         guard self.isActive else { return }
         let interval = self.startDate.timeIntervalSince(Date())
@@ -33,7 +33,7 @@ extension SingleLapTimer {
 }
 
 // MARK: - Start/Stop
-extension SingleLapTimer {
+extension SimpleTimer {
     public func start() {
         self.isActive = true
         self.startDate = Date()
