@@ -1,11 +1,11 @@
 //
-// TimeReporter.swift
+// SingleLapTimer.swift
 // Copyright © 2017 Matej Kosiarcik. All rights reserved.
 //
 
 import Foundation
 
-public final class TimeReporter {
+public final class SingleLapTimer {
     private let onUpdate: (TimeInterval) -> Void
     private let updateInterval: TimeInterval
     private var isActive = false
@@ -23,7 +23,7 @@ public final class TimeReporter {
 }
 
 // MARK: - Updating
-extension TimeReporter {
+extension SingleLapTimer {
     private func update() {
         guard self.isActive else { return }
         let interval = self.startDate.timeIntervalSince(Date())
@@ -33,7 +33,7 @@ extension TimeReporter {
 }
 
 // MARK: - Start/Stop
-extension TimeReporter {
+extension SingleLapTimer {
     public func start() {
         self.isActive = true
         self.startDate = Date()

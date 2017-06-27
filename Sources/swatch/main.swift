@@ -51,7 +51,7 @@ func setupStandardInput() {
 
 func main() {
     setupStandardInput()
-    let watcher = TimeReporter(each: 0.005) { print(abs($0).formatted, terminator: "\r"); fflush(stdout) }
+    let watcher = SingleLapTimer(each: 0.005) { print(abs($0).formatted, terminator: "\r"); fflush(stdout) }
     watcher.start()
     loop: while true {
         guard let input = readCharacter(from: .standardInput) else { continue }
