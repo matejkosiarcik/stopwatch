@@ -1,5 +1,5 @@
 //
-// WatcherTests.swift
+// SingleLapTimerTests.swift
 // Copyright © 2017 Matej Kosiarcik. All rights reserved.
 //
 
@@ -7,13 +7,13 @@ import Nimble
 import XCTest
 @testable import StopWatch
 
-final class WatcherTest: XCTestCase {}
+final class SingleLapTimerTest: XCTestCase {}
 
-extension WatcherTest {
+extension SingleLapTimerTest {
     func testStarting() {
         // given
         var collector = [TimeInterval]()
-        let watcher = TimeReporter(each: 0.1) { collector.append($0) }
+        let watcher = SingleLapTimer(each: 0.1) { collector.append($0) }
 
         // when
         expect(collector.isEmpty) == true
@@ -26,7 +26,7 @@ extension WatcherTest {
     func testUpdating() {
         // given
         var collector = [TimeInterval]()
-        let watcher = TimeReporter(each: 0.1) { collector.append($0) }
+        let watcher = SingleLapTimer(each: 0.1) { collector.append($0) }
 
         // when
         watcher.start()
@@ -41,7 +41,7 @@ extension WatcherTest {
     func testStopping() {
         // given
         var collector = [TimeInterval]()
-        let watcher = TimeReporter(each: 0.1, onUpdate: { collector.append($0) })
+        let watcher = SingleLapTimer(each: 0.1, onUpdate: { collector.append($0) })
 
         // when
         watcher.start()
