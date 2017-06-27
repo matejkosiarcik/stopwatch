@@ -51,14 +51,14 @@ func setupStandardInput() {
 
 func main() {
     setupStandardInput()
-    var last: TimeInterval = 0
-    let watcher = TimeReporter(each: 0.005) { last = $0; print(abs($0).formatted, terminator: "\r"); fflush(stdout) }
+    let watcher = TimeReporter(each: 0.005) { print(abs($0).formatted, terminator: "\r"); fflush(stdout) }
     watcher.start()
     loop: while true {
         guard let input = readCharacter(from: .standardInput) else { continue }
         shell("clear")
         if input == .esc { break loop }
     }
+    let last = watcher.stop()
     print(abs(last).formatted)
 }
 
