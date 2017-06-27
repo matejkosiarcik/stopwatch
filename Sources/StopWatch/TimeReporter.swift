@@ -9,6 +9,7 @@ public final class TimeReporter {
     private let onUpdate: (TimeInterval) -> Void
     private let updateInterval: TimeInterval
     private var isActive = false
+    private var startDate = Date.distantPast
 
     // MARK: De/Init
     public init(each interval: TimeInterval, onUpdate: @escaping (TimeInterval) -> Void) {
@@ -23,12 +24,11 @@ public final class TimeReporter {
 
 // MARK: - Updating
 extension TimeReporter {
-    private func update(from start: Date) {
+    private func update() {
         guard self.isActive else { return }
-        let current = Date()
-        let interval = start.timeIntervalSince(current)
+        let interval = self.startDate.timeIntervalSince(Date())
         self.onUpdate(interval)
-        DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + self.updateInterval) { self.update(from: start) }
+        DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + self.updateInterval) { self.update() }
     }
 }
 
@@ -36,10 +36,13 @@ extension TimeReporter {
 extension TimeReporter {
     public func start() {
         self.isActive = true
-        self.update(from: Date())
+        self.startDate = Date()
+        self.update()
     }
 
-    public func stop() {
+    @discardableResult
+    public func stop() -> TimeInterval {
         self.isActive = false
+        return self.startDate.timeIntervalSince(Date())
     }
 }
