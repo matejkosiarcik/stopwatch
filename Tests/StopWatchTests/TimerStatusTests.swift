@@ -1,5 +1,5 @@
 //
-// TimerTests.swift
+// TimerStatusTests.swift
 // Copyright © 2017 Matej Kosiarcik. All rights reserved.
 //
 
