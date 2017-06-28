@@ -10,12 +10,6 @@ extension Character {
     static let esc = Character("\u{1B}")
 }
 
-func readCharacter(from file: FileHandle) -> Character? {
-    let data = file.readData(ofLength: 1)
-    let string = String(data: data, encoding: .ascii)
-    return string?.characters.first
-}
-
 // setup unbuffered standard input
 func setupStandardInput() {
     setbuf(stdin, nil)
