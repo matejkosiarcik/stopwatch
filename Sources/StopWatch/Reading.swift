@@ -1,5 +1,5 @@
 //
-// Shell.swift
+// Reading.swift
 // Copyright © 2017 Matej Kosiarcik. All rights reserved.
 //
 
