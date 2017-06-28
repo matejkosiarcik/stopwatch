@@ -10,16 +10,6 @@ extension Character {
     static let esc = Character("\u{1B}")
 }
 
-@discardableResult
-func shell(_ command: String) -> Int32 {
-    let task = Process()
-    task.launchPath = "/bin/sh"
-    task.arguments = ["-c"] + [command]
-    task.launch()
-    task.waitUntilExit()
-    return task.terminationStatus
-}
-
 func readCharacter(from file: FileHandle) -> Character? {
     let data = file.readData(ofLength: 1)
     let string = String(data: data, encoding: .ascii)
