@@ -12,7 +12,7 @@ final class ReadingTest: XCTestCase {}
 extension ReadingTest {
     func testReadingSingleCharacter() {
         // given
-        let filePath = NSTemporaryDirectory().appending("/StopWatch.txt.tmp")
+        let filePath = NSTemporaryDirectory().appending("/" + UUID().uuidString + ".txt.tmp")
         FileManager.default.createFile(atPath: filePath, contents: "abc".data(using: .ascii))
 
         // when
