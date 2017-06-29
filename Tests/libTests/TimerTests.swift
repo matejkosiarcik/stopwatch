@@ -5,14 +5,14 @@
 
 import Nimble
 import XCTest
-@testable import StopWatch
+@testable import lib
 
 final class TimerTest: XCTestCase {}
 
 extension TimerTest {
     func testInitialization() {
         // when
-        let timer = StopWatch.Timer()
+        let timer = lib.Timer()
 
         // then
         expect(timer.current) == 0
@@ -22,7 +22,7 @@ extension TimerTest {
 
     func testStarting() {
         // given
-        var timer = StopWatch.Timer()
+        var timer = lib.Timer()
 
         // when
         timer.start()

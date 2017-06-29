@@ -8,8 +8,20 @@ package.dependencies = [
     .package(url: "https://github.com/Quick/Nimble.git", from: "7.0.0")
 ]
 
+package.products = [
+   .executable(name: "swatch", targets: ["main"]),
+   .library(name: "StopWatch", targets: ["lib"]),
+]
+
 package.targets = [
-    .target(name: "swatch", dependencies: ["StopWatch"]), // executable
-    .target(name: "StopWatch", dependencies: []), // library
-    .testTarget(name: "StopWatchTests", dependencies: ["StopWatch", "Nimble"]),
+    // executable
+    .target(name: "main", dependencies: ["cli"]),
+
+    // cli interface for testing
+    .target(name: "cli", dependencies: ["lib"]),
+    .testTarget(name: "cliTests", dependencies: ["cli", "Nimble"]),
+
+    // library
+    .target(name: "lib", dependencies: []),
+    .testTarget(name: "libTests", dependencies: ["lib", "Nimble"]),
 ]

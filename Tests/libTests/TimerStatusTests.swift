@@ -5,7 +5,7 @@
 
 import Nimble
 import XCTest
-@testable import StopWatch
+@testable import lib
 
 final class TimerStatusTest: XCTestCase {}
 
@@ -13,8 +13,8 @@ extension TimerStatusTest {
     func testEquatability() {
         // given
         let date = Date()
-        let reference: [StopWatch.Timer.Status] = [.stopped, .running(date)]
-        let testers: [StopWatch.Timer.Status] = [.stopped, .running(date), .running(Date())]
+        let reference: [lib.Timer.Status] = [.stopped, .running(date)]
+        let testers: [lib.Timer.Status] = [.stopped, .running(date), .running(Date())]
         let expected = [[true, false, false], [false, true, false]].flatMap { $0 }
 
         // when

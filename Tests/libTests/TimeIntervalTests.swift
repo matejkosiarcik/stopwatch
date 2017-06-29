@@ -5,7 +5,7 @@
 
 import Nimble
 import XCTest
-@testable import StopWatch
+@testable import lib
 
 final class TimeIntervalTest: XCTestCase {}
 
