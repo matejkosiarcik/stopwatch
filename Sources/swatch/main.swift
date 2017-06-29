@@ -20,26 +20,38 @@ func setupStandardInput() {
     tcsetattr(STDIN_FILENO, TCSANOW, &input)
 }
 
+func report(time: String) {
+    print(time, terminator: "\r")
+    fflush(stdout) // force terminal to print message; because when buffered it can wait till \n is printed
+}
+
+func updateInfo(for timer: lib.Timer) {
+    shell("clear")
+    timer.laps.map { $0.formatted }.forEach { print($0) }
+    report(time: timer.current.formatted)
+}
+
 func main() {
     setupStandardInput()
     var timer = StopWatch.Timer()
 
-    func report() {
-        print(timer.current.formatted, terminator: "\r")
-        fflush(stdout)
-        DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + 0.05) { report() }
+    func reportLoop() {
+        report(time: timer.current.formatted)
+        DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + 0.005) { reportLoop() }
     }
-    report()
+    reportLoop()
 
     timer.start()
     loop: while true {
         guard let input = readCharacter(from: .standardInput) else { continue }
-        shell("clear")
         if input == .esc { break loop }
         else if input == Character(" ") { timer.status == .stopped ? timer.start() : timer.stop() }
         else if input == Character("\r") || input == Character("\n") { timer.lap() }
+        updateInfo(for: timer)
     }
+    timer.lap()
     timer.stop()
+    updateInfo(for: timer)
 }
 
 main()
