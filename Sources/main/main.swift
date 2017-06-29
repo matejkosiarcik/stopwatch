@@ -56,7 +56,7 @@ func program() {
 }
 
 func main(arguments: [String]) {
-    let arguments = Array(arguments.dropFirst())
+    let arguments = arguments.dropFirst()
     let help = """
     Usage: swatch [options]
         -h, --help      Show help message
