@@ -5,7 +5,7 @@
 
 import Nimble
 import XCTest
-@testable import StopWatch
+@testable import cli
 
 final class ReadingTest: XCTestCase {}
 

@@ -4,7 +4,8 @@
 //
 
 import Foundation
-import StopWatch
+import cli
+import lib
 
 extension Character {
     static let esc = Character("\u{1B}")
@@ -33,7 +34,7 @@ func updateInfo(for timer: lib.Timer) {
 
 func main() {
     setupStandardInput()
-    var timer = StopWatch.Timer()
+    var timer = lib.Timer()
 
     func reportLoop() {
         report(time: timer.current.formatted)
