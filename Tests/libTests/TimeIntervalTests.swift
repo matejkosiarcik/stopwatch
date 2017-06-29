@@ -3,16 +3,16 @@
 // Copyright © 2017 Matej Kosiarcik. All rights reserved.
 //
 
+@testable import lib
 import Nimble
 import XCTest
-@testable import lib
 
 final class TimeIntervalTest: XCTestCase {}
 
 extension TimeIntervalTest {
     func testFormatting() {
         // given
-        let intervals = [0, 1.34503928, 345.9999, 4573.68]
+        let intervals = [0, 1.345_039_28, 345.999_9, 4_573.68]
         let expected = [
             "00:00:00.000",
             "00:00:01.345",
