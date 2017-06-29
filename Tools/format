@@ -9,4 +9,9 @@
 set -euf
 cd "$(dirname "${0}")/.."
 
-swiftlint autocorrect
+# Swift
+if command -v swiftlint >/dev/null 2>&1; then
+    swiftlint autocorrect 2>/dev/null
+else
+    printf "%s\n" "warning: swiftlint not found. (tool_not_found)"
+fi
