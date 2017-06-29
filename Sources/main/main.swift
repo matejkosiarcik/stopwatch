@@ -59,7 +59,7 @@ func main(arguments: [String]) {
     let arguments = Array(arguments.dropFirst())
     let help = """
     Usage: swatch [options]
-        -h, --help  Show help message
+        -h, --help      Show help message
     """
 
     switch arguments.count {
