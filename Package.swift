@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(name: "StopWatch")
 
 package.dependencies = [
-    .package(url: "https://github.com/Quick/Nimble.git", from: "7.0.0")
+    .package(url: "https://github.com/Quick/Nimble.git", from: "7.0.0"),
 ]
 
 package.products = [

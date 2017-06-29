@@ -3,9 +3,9 @@
 // Copyright © 2017 Matej Kosiarcik. All rights reserved.
 //
 
+@testable import lib
 import Nimble
 import XCTest
-@testable import lib
 
 final class TimerStatusTest: XCTestCase {}
 

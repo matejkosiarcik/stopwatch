@@ -3,9 +3,9 @@
 // Copyright © 2017 Matej Kosiarcik. All rights reserved.
 //
 
+@testable import cli
 import Nimble
 import XCTest
-@testable import cli
 
 final class ReadingTest: XCTestCase {}
 

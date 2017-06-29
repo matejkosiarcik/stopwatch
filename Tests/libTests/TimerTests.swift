@@ -3,9 +3,9 @@
 // Copyright © 2017 Matej Kosiarcik. All rights reserved.
 //
 
+@testable import lib
 import Nimble
 import XCTest
-@testable import lib
 
 final class TimerTest: XCTestCase {}
 
@@ -33,7 +33,7 @@ extension TimerTest {
         wait(for: [exp], timeout: 1)
         expect(timer.current).to(beCloseTo(0.3, within: 0.01))
         switch timer.status {
-        case .running(_): break
+        case .running: break
         default: XCTFail()
         }
     }

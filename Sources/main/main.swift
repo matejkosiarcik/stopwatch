@@ -3,8 +3,8 @@
 // Copyright © 2017 Matej Kosiarcik. All rights reserved.
 //
 
-import Foundation
 import cli
+import Foundation
 import lib
 
 extension Character {
