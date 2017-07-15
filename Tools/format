@@ -32,5 +32,5 @@ if command -v shfmt >/dev/null 2>&1; then
         shfmt -i 4 -p -w "${file}"
     done
 else
-    printf "%s\n" "warning: shfmt OR xmllint not found. (tool_not_found)"
+    printf "%s\n" "warning: shfmt not found. (tool_not_found)"
 fi
