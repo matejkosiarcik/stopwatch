@@ -9,6 +9,13 @@
 set -euf
 cd "$(dirname "${0}")/.."
 
+# All
+# this removes duplicate empty lines and trailing newlines
+strip() { printf "%s\n" "$(cat -s "${1}")" >"${1}"; }
+git ls-tree -r --name-only "HEAD" | while IFS= read -r file; do
+    strip "${file}"
+done
+
 # Swift
 if command -v swiftlint >/dev/null 2>&1; then
     swiftlint autocorrect 2>/dev/null
