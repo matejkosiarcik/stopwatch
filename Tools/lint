@@ -41,7 +41,7 @@ fi
 if command -v shfmt >/dev/null 2>&1; then
     find "./Tools" -type f -not -name "\.*" | while IFS= read -r file; do
         shfmt -i 4 -p -l "${file}" \
-            | sed -E "s-(.*)-\1: warning: file badly formatted, run 'format' script to resolve (bad_format)-g"
+            | sed -E "s~(.*)~\1: warning: file badly formatted, run 'format' script to resolve (bad_format)~g"
     done
 else
     printf "%s\n" "warning: shfmt not found. (tool_not_found)"
