@@ -18,23 +18,23 @@ fi
 
 # Markdown
 if command -v mdl >/dev/null 2>&1; then
-    mdl .
+    mdl . --git-recurse || true
 else
     printf "%s\n" "warning: markdownlint(mdl) not found. (tool_not_found)"
 fi
 
 # Yaml
 if command -v yamllint >/dev/null 2>&1; then
-    yamllint  -f parsable -c .yamllint.yml .
+    yamllint . --format parsable --config-file ".yamllint.yml" || true
 else
     printf "%s\n" "warning: yamllint not found. (tool_not_found)"
 fi
 
 # Shell
 if command -v shellcheck >/dev/null 2>&1; then
-    SHELL_FILES=$(find -E "./Tools" -type f | tr "\n" " ")
-    # shellcheck disable=SC2086
-    [ ! -z "${SHELL_FILES}" ] && shellcheck -f gcc ${SHELL_FILES}
+    find "./Tools" -type f -not -name "\.*" | while IFS= read -r file; do
+        shellcheck --format gcc "${file}" || true
+    done
 else
     printf "%s\n" "warning: shellcheck not found. (tool_not_found)"
 fi
