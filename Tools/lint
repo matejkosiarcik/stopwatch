@@ -46,3 +46,57 @@ if command -v shfmt >/dev/null 2>&1; then
 else
     printf "%s\n" "warning: shfmt not found. (tool_not_found)"
 fi
+# Invoke various shells with scripts for alternative linting via dry runs
+if command -v sh >/dev/null 2>&1; then
+    find "./Tools" -type f -not -name "\.*" | while IFS= read -r file; do
+        sh -n "${file}" || true
+    done
+else
+    printf "%s\n" "warning: sh not found. (tool_not_found)"
+fi
+if command -v bash >/dev/null 2>&1; then
+    find "./Tools" -type f -not -name "\.*" | while IFS= read -r file; do
+        bash -n "${file}" || true
+        bash --posix -o pipefail -n "${file}" || true
+        bash -o posix -o pipefail -n "${file}" || true
+    done
+else
+    printf "%s\n" "warning: bash not found. (tool_not_found)"
+fi
+if command -v dash >/dev/null 2>&1; then
+    find "./Tools" -type f -not -name "\.*" | while IFS= read -r file; do
+        dash -n "${file}" || true
+    done
+else
+    printf "%s\n" "warning: dash not found. (tool_not_found)"
+fi
+if command -v ksh >/dev/null 2>&1; then
+    find "./Tools" -type f -not -name "\.*" | while IFS= read -r file; do
+        ksh -n "${file}" || true
+    done
+else
+    printf "%s\n" "warning: ksh not found. (tool_not_found)"
+fi
+if command -v mksh >/dev/null 2>&1; then
+    find "./Tools" -type f -not -name "\.*" | while IFS= read -r file; do
+        mksh -n "${file}" || true
+    done
+else
+    printf "%s\n" "warning: mksh not found. (tool_not_found)"
+fi
+if command -v zsh >/dev/null 2>&1; then
+    find "./Tools" -type f -not -name "\.*" | while IFS= read -r file; do
+        zsh -n "${file}" || true
+    done
+else
+    printf "%s\n" "warning: zsh not found. (tool_not_found)"
+fi
+if command -v yash >/dev/null 2>&1; then
+    find "./Tools" -type f -not -name "\.*" | while IFS= read -r file; do
+        yash -n "${file}" || true
+        yash --posix -n "${file}" || true
+        yash -o posixly-correct -n "${file}" || true
+    done
+else
+    printf "%s\n" "warning: yash not found. (tool_not_found)"
+fi
