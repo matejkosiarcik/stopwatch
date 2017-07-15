@@ -15,3 +15,12 @@ if command -v swiftlint >/dev/null 2>&1; then
 else
     printf "%s\n" "warning: swiftlint not found. (tool_not_found)"
 fi
+
+# Shell
+if command -v shfmt >/dev/null 2>&1; then
+    find "./Tools" -type f -not -name "\.*" | while IFS= read -r file; do
+        shfmt -i 4 -p -w "${file}"
+    done
+else
+    printf "%s\n" "warning: shfmt OR xmllint not found. (tool_not_found)"
+fi
