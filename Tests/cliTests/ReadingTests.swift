@@ -4,7 +4,6 @@
 //
 
 @testable import cli
-import Nimble
 import XCTest
 
 final class ReadingTest: XCTestCase {}
@@ -14,12 +13,13 @@ extension ReadingTest {
         // given
         let filePath = NSTemporaryDirectory().appending("/" + UUID().uuidString + ".txt.tmp")
         FileManager.default.createFile(atPath: filePath, contents: "abc".data(using: .ascii))
+        let expected = Character("a")
 
         // when
         guard let reader = FileHandle(forReadingAtPath: filePath) else { XCTFail(); return }
         let char = readCharacter(from: reader)
 
         // then
-        expect(char) == Character("a")
+        XCTAssertEqual(char, expected)
     }
 }

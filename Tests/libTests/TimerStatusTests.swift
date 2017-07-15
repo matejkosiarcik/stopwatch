@@ -4,7 +4,6 @@
 //
 
 @testable import lib
-import Nimble
 import XCTest
 
 final class TimerStatusTest: XCTestCase {}
@@ -21,6 +20,6 @@ extension TimerStatusTest {
         let tested = reference.flatMap { ref in testers.flatMap { ref == $0 } }
 
         // then
-        expect(tested) == expected
+        XCTAssertEqual(tested, expected)
     }
 }

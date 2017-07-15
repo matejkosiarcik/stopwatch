@@ -4,7 +4,6 @@
 //
 
 @testable import cli
-import Nimble
 import XCTest
 
 final class ShellTest: XCTestCase {}
@@ -19,6 +18,6 @@ extension ShellTest {
         let exitCode = shell(command)
 
         // then
-        expect(exitCode) == expected
+        XCTAssertEqual(exitCode, expected)
     }
 }
