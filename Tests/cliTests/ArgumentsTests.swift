@@ -22,10 +22,7 @@ extension ArgumentsTest {
         XCTAssertEqual(args.help, expected.help)
         XCTAssertEqual(args.version, expected.version)
     }
-}
 
-// Parsing
-extension ArgumentsTest {
     func testUnsuccessfulParsing() {
         // given
         let arguments = [
@@ -74,6 +71,7 @@ extension ArgumentsTest {
     }
 }
 
+// Helpers
 extension ArgumentsTest {
     func testExecutablePathFileName() {
         // given
