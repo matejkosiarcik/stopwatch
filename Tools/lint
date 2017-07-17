@@ -17,12 +17,12 @@ fi
 
 # Markdown
 if check mdl; then
-    mdl . --git-recurse || true
+    mdl "." --git-recurse || true
 fi
 
 # Yaml
 if check yamllint; then
-    yamllint . --format parsable --config-file ".yamllint.yml" || true
+    yamllint "." --format parsable --config-file ".yamllint.yml" || true
 fi
 
 # Shell
