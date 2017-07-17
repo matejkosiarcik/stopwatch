@@ -8,6 +8,7 @@
 # setup
 set -euf
 cd "$(dirname "${0}")/.."
+. ./Tools/helpers.sh
 
 # Pre build stages
 ./Tools/prepare
