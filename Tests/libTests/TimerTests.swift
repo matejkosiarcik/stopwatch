@@ -30,7 +30,7 @@ extension TimerTest {
         let exp = expectation(description: "")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { exp.fulfill() }
         wait(for: [exp], timeout: 1)
-        XCTAssertEqual(timer.current, 0.3, accuracy: 0.01)
+        XCTAssertEqual(timer.current, 0.3, accuracy: 0.015)
         switch timer.status {
         case .running: break
         default: XCTFail()
