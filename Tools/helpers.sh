@@ -6,7 +6,7 @@
 #
 
 # this removes excessive whitespace
-# accepts single argument of file to format
+# accepts 1 argument of file to format
 strip() {
     printf "%s\n" "$(sed '/./,$!d' "${1}")" >"${1}"            # remove leading newlines
     printf "%s\n" "$(cat -s "${1}")" >"${1}"                   # strip multiple empty lines and trailing newlines
@@ -15,14 +15,14 @@ strip() {
 
 # searches for passed command
 # returns 0 if command was found, non-0 otherwise
-# accepts single argument of command to look up
+# accepts 1 argument of command to look up
 exists() {
     command -v "${1}" >/dev/null 2>&1
 }
 
 # checks if given tool exists
 # print message if not
-# accepts single argument of command to look up
+# accepts 1 argument of command to look up
 # uses () instead of {} for function body because:
 #  - we do not want to expose declared variables inside function
 #  - and also to not override variables declared somewhere else
