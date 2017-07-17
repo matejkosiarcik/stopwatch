@@ -35,4 +35,3 @@ extension HelpersTest {
         XCTAssertEqual(exitCode, expected)
     }
 }
-
