@@ -1,0 +1,16 @@
+#!/bin/sh
+#
+# build
+# Copyright © 2017 Matej Kosiarcik. All rights reserved.
+# This file builds project
+#
+
+# setup
+set -euf
+cd "$(dirname "${0}")/.."
+
+# Pre build stages
+./Tools/prepare
+
+# SwiftPM
+swift build

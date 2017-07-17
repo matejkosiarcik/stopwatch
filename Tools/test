@@ -1,0 +1,16 @@
+#!/bin/sh
+#
+# test
+# Copyright © 2017 Matej Kosiarcik. All rights reserved.
+# This file tests project
+#
+
+# setup
+set -euf
+cd "$(dirname "${0}")/.."
+
+# Run classic build
+./Tools/build
+
+# SwiftPM
+swift test
