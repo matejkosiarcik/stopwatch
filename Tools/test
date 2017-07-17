@@ -15,5 +15,7 @@ if [ "${#}" -eq "0" ]; then ./Tools/build
 else ./Tools/build "${@}"; fi
 
 # Swift compiler
-if [ "${#}" -eq "0" ]; then swift test
-else swift test "${@}"; fi
+if check swift; then
+    if [ "${#}" -eq "0" ]; then swift test
+    else swift test "${@}"; fi
+fi

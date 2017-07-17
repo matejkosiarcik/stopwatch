@@ -11,5 +11,7 @@ cd "$(dirname "${0}")/.."
 . ./Tools/helpers.sh
 
 # SwiftPM
-swift package resolve
-swift package generate-xcodeproj --enable-code-coverage
+if check swift; then
+    swift package resolve
+    swift package generate-xcodeproj --enable-code-coverage
+fi

@@ -11,4 +11,6 @@ cd "$(dirname "${0}")/.."
 . ./Tools/helpers.sh
 
 # SwiftPM
-swift package update
+if check swift; then
+    swift package update
+fi
