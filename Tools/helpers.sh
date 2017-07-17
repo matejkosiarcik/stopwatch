@@ -27,9 +27,9 @@ exists() {
 #  - and also to not override variables declared somewhere else
 check() (
     exists "${1}"
-    doesExists="${?}"
-    if [ ! "${doesExists}" -eq "0" ]; then
+    doesExist="${?}"
+    if [ ! "${doesExist}" -eq "0" ]; then
         printf "%s\n" "warning: ${1} not found. (tool_not_found)"
     fi
-    return "${doesExists}"
+    return "${doesExist}"
 )
