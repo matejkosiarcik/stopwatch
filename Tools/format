@@ -10,9 +10,12 @@ set -euf
 cd "$(dirname "${0}")/.."
 . ./Tools/helpers.sh
 
-git ls-tree -r --name-only "HEAD" | while IFS= read -r file; do
-    strip "${file}"
-done
+# All files
+if check git; then
+    git ls-tree -r --name-only "HEAD" | while IFS= read -r file; do
+        strip "${file}"
+    done
+fi
 
 # Swift
 if check swiftlint; then
