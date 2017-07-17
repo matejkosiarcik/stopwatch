@@ -37,4 +37,26 @@ check() (
     return "${doesExist}"
 )
 
-alias git-files='git ls-tree -r --name-only "HEAD"'
+# helpers returning true/false
+# accepts 2 arguments
+#  - 1. is subject string to test, e.g. "/foo"
+#  - 2. is test string, e.g. "/"
+has_prefix() { case "${1}" in "${2}"*) true ;; *) false ;; esac; }
+has_suffix() { case "${1}" in *"${2}") true ;; *) false ;; esac; }
+
+# finds all files in current tree that satisfy conditions
+# conditions:
+#  - file must not be in ".git" directory
+#  - file must not be ignored by command "git" when "git" is available
+# prints out files that satisfy all conditions
+# prints in style without leading "./"
+# also works when command "git" is not found
+# accepts 0 arguments
+git_files() {
+    find "." -type f | while IFS= read -r file; do
+        if exists git && git check-ignore "${file}" >/dev/null 2>&1; then continue; fi       # if git exists and ignores this file
+        if has_prefix "${file}" "./"; then file="$(printf "%s\n" "${file}" | cut -c 3-)"; fi # remove leading ./ from file path
+        if has_prefix "${file}" ".git/"; then continue; fi                                   # if the path is in '.git' directory
+        printf "%s\n" "${file}"
+    done
+}
