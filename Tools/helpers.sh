@@ -2,7 +2,7 @@
 #
 # helpers.sh
 # Copyright © 2017 Matej Kosiarcik. All rights reserved.
-# This file contains helper functions for tools
+# This file contains helper functions for other tools
 #
 
 # this removes excessive whitespace
