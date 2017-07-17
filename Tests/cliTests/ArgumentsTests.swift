@@ -75,7 +75,8 @@ extension ArgumentsTest {
 extension ArgumentsTest {
     func testExecutablePathFileName() {
         // given
-        let args = ["/dev/null", "/foo", "./bar", "../foo/bar/baz", "file", ""].map { Arguments(path: $0, help: false, version: false, usage: "") }
+        let args = ["/dev/null", "/foo", "./bar", "../foo/bar/baz", "file", ""]
+            .map { Arguments(path: $0, help: false, version: false, usage: "") }
         let expected = ["null", "foo", "bar", "baz", "file", ""]
 
         // when
