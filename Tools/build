@@ -15,6 +15,6 @@ cd "$(dirname "${0}")/.."
 
 # Swift compiler
 if check swift; then
-    if [ "${#}" -eq "0" ]; then swift build
-    else swift build "${@}"; fi
+    { if [ "${#}" -eq "0" ]; then swift build; else swift build "${@}"; fi; } 2>/dev/null \
+        | grep -Ev "^Compile " | grep -Ev "^Linking " || true
 fi
