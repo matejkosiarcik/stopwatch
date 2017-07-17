@@ -24,7 +24,7 @@ fi
 
 # Shell
 if check shfmt; then
-    find "./Tools" -type f -not -name "\.*" | while IFS= read -r file; do
+    find "./Tools" -type f -not -name ".*" | while IFS= read -r file; do
         shfmt -i 4 -p -w "${file}"
     done
 fi
