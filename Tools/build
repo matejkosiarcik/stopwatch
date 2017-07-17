@@ -13,4 +13,4 @@ cd "$(dirname "${0}")/.."
 ./Tools/prepare
 
 # SwiftPM
-swift build
+swift build "${@}"

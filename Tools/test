@@ -10,7 +10,7 @@ set -euf
 cd "$(dirname "${0}")/.."
 
 # Run classic build
-./Tools/build
+./Tools/build "${@}"
 
 # SwiftPM
-swift test
+swift test "${@}"
