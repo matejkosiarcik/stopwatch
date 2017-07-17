@@ -60,11 +60,14 @@ extension Program {
 
 extension Program {
     func help() -> String {
-        return ""
+        return self.arguments.usage
     }
 
     func version() -> String {
-        return ""
+        return """
+        StopWatch - CLI stopwatch application
+        version: 0.1.0
+        """
     }
 }
 
