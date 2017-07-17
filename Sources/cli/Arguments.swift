@@ -21,7 +21,9 @@ public struct Arguments {
 
 extension Arguments {
     var executableFileName: String {
-        return String(self.path.split(separator: "/").last ?? crash("Executable filename not found."))
+        let parts = self.path.split(separator: "/")
+        guard !parts.isEmpty else { return "" }
+        return String(parts[parts.count - 1])
     }
 }
 

@@ -8,6 +8,8 @@ import XCTest
 
 final class ArgumentsTest: XCTestCase {}
 
+// MARK: - Arguments
+// Initialization
 extension ArgumentsTest {
     func testInitialization() {
         // given
@@ -20,7 +22,10 @@ extension ArgumentsTest {
         XCTAssertEqual(args.help, expected.help)
         XCTAssertEqual(args.version, expected.version)
     }
+}
 
+// Parsing
+extension ArgumentsTest {
     func testUnsuccessfulParsing() {
         // given
         let arguments = [
@@ -66,5 +71,34 @@ extension ArgumentsTest {
             case .failure(let x): XCTFail(String(describing: x) + " " + $0.offset.description)
             }
         }
+    }
+}
+
+extension ArgumentsTest {
+    func testExecutablePathFileName() {
+        // given
+        let args = ["/dev/null", "/foo", "./bar", "../foo/bar/baz", "file", ""].map { Arguments(path: $0, help: false, version: false, usage: "") }
+        let expected = ["null", "foo", "bar", "baz", "file", ""]
+
+        // when
+        let tested = args.map { $0.executableFileName }
+
+        // then
+        XCTAssertEqual(tested, expected)
+    }
+}
+
+// MARK: - Arguments.Error
+extension ArgumentsTest {
+    func testErrorDescription() {
+        // given
+        let error = Arguments.Error.passed("Foo")
+        let expected = "Foo"
+
+        // when
+        let description = error.description
+
+        // then
+        XCTAssertEqual(description, expected)
     }
 }
