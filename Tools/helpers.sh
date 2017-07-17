@@ -5,10 +5,6 @@
 # This file contains helper functions for tools
 #
 
-# setup
-set -euf
-cd "$(dirname "${0}")/.."
-
 # this removes excessive whitespace
 # accepts single argument of file to format
 strip() {
