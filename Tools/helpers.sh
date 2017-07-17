@@ -4,6 +4,7 @@
 # This file contains helper functions for other tools
 #
 
+# Specifies to ShellCheck what shell it should use for linting
 # shellcheck shell=sh
 
 # this removes excessive whitespace
