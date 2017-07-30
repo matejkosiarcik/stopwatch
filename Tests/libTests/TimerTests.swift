@@ -10,7 +10,7 @@ final class TimerTests: XCTestCase {
     private let accuracy = 0.013
 }
 
-// MARK: - Cretion
+// MARK: - Creation
 extension TimerTests {
     func testInitialization() {
         // when
