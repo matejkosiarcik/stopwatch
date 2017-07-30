@@ -148,7 +148,7 @@ extension TimerTests {
         XCTAssertEqual(timer.laps[0].absolute, timer.laps[0].relative)
         XCTAssertEqual(timer.laps[1].absolute, 0.3, accuracy: self.accuracy)
         XCTAssertEqual(timer.laps[1].relative, 0.1, accuracy: self.accuracy)
-        XCTAssertEqual(timer.current, 0.3, accuracy: 0.01)
+        XCTAssertEqual(timer.current, 0.3, accuracy: self.accuracy)
         switch timer.status {
         case .running: break
         default: XCTFail("Timer should be running")
