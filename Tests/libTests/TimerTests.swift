@@ -6,7 +6,9 @@
 @testable import lib
 import XCTest
 
-final class TimerTests: XCTestCase {}
+final class TimerTests: XCTestCase {
+    private let accuracy = 0.012
+}
 
 // MARK: - Cretion
 extension TimerTests {
@@ -29,15 +31,185 @@ extension TimerTests {
 
         // when
         timer.start()
+        let exp = expectation(description: "")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { exp.fulfill() }
+        wait(for: [exp], timeout: 0.25)
 
         // then
-        let exp = expectation(description: "")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { exp.fulfill() }
-        wait(for: [exp], timeout: 1)
-        XCTAssertEqual(timer.current, 0.3, accuracy: 0.015)
+        XCTAssertEqual(timer.current, 0.2, accuracy: self.accuracy)
+        XCTAssertEqual(timer.laps, [])
         switch timer.status {
         case .running: break
-        default: XCTFail()
+        default: XCTFail("Timer should be running")
+        }
+    }
+
+    func testMultipleStarts() {
+        // given
+        var timer = lib.Timer()
+
+        // when
+        timer.start()
+        let exp = expectation(description: "")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { exp.fulfill() }
+        wait(for: [exp], timeout: 0.25)
+        timer.start()
+
+        // then
+        XCTAssertEqual(timer.current, 0.2, accuracy: self.accuracy)
+        XCTAssertEqual(timer.laps, [])
+        switch timer.status {
+        case .running: break
+        default: XCTFail("Timer should be running")
+        }
+    }
+
+    func testStopping() {
+        // given
+        var timer = lib.Timer()
+
+        // when
+        timer.start()
+        let exp = expectation(description: "")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { timer.stop(); exp.fulfill() }
+        wait(for: [exp], timeout: 0.25)
+
+        // then
+        XCTAssertEqual(timer.current, 0.2, accuracy: self.accuracy)
+        XCTAssertEqual(timer.laps, [])
+        switch timer.status {
+        case .stopped: break
+        default: XCTFail("Timer should be stopped")
+        }
+    }
+
+    func testMultipleStops() {
+        // given
+        var timer = lib.Timer()
+
+        // when
+        timer.start()
+        let exp = expectation(description: "")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { timer.stop(); exp.fulfill() }
+        wait(for: [exp], timeout: 0.25)
+        timer.stop()
+
+        // then
+        XCTAssertEqual(timer.current, 0.2, accuracy: self.accuracy)
+        XCTAssertEqual(timer.laps, [])
+        switch timer.status {
+        case .stopped: break
+        default: XCTFail("Timer should be stopped")
+        }
+    }
+}
+
+// MARK: - Lapping
+extension TimerTests {
+    func testStationaryLaps() {
+        // given
+        var timer = lib.Timer()
+
+        // when
+        timer.start()
+        let exp = expectation(description: "")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { exp.fulfill() }
+        wait(for: [exp], timeout: 0.25)
+        timer.stop()
+        timer.lap()
+        timer.lap()
+        timer.lap()
+
+        // then
+        XCTAssertEqual(timer.laps.count, 3)
+        XCTAssertEqual(timer.laps[0].absolute, 0.2, accuracy: self.accuracy)
+        XCTAssertEqual(timer.laps[0].relative, 0.2, accuracy: self.accuracy)
+        XCTAssertEqual(timer.laps[0].absolute, timer.laps[0].relative)
+        XCTAssertEqual(timer.laps[1].absolute, 0.2, accuracy: self.accuracy)
+        XCTAssertEqual(timer.laps[1].relative, 0, accuracy: self.accuracy)
+        XCTAssertEqual(timer.laps[1].absolute, timer.laps[0].absolute)
+        XCTAssertEqual(timer.laps[2].absolute, 0.2, accuracy: self.accuracy)
+        XCTAssertEqual(timer.laps[2].relative, 0, accuracy: self.accuracy)
+        XCTAssertEqual(timer.laps[2].absolute, timer.laps[1].absolute)
+        XCTAssertEqual(timer.current, 0.2, accuracy: self.accuracy)
+        switch timer.status {
+        case .stopped: break
+        default: XCTFail("Timer should be stopped")
+        }
+    }
+
+    func testTrivialLapping() {
+        // given
+        var timer = lib.Timer()
+
+        // when
+        timer.start()
+        let exp = expectation(description: "")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { timer.lap(); exp.fulfill() }
+        wait(for: [exp], timeout: 0.25)
+        let exp2 = expectation(description: "")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { timer.lap(); exp2.fulfill() }
+        wait(for: [exp2], timeout: 0.15)
+
+        // then
+        XCTAssertEqual(timer.laps.count, 2)
+        XCTAssertEqual(timer.laps[0].absolute, 0.2, accuracy: self.accuracy)
+        XCTAssertEqual(timer.laps[0].relative, 0.2, accuracy: self.accuracy)
+        XCTAssertEqual(timer.laps[0].absolute, timer.laps[0].relative)
+        XCTAssertEqual(timer.laps[1].absolute, 0.3, accuracy: self.accuracy)
+        XCTAssertEqual(timer.laps[1].relative, 0.1, accuracy: self.accuracy)
+        XCTAssertEqual(timer.current, 0.3, accuracy: 0.01)
+        switch timer.status {
+        case .running: break
+        default: XCTFail("Timer should be running")
+        }
+    }
+
+    func testComplicatedLapping() {
+        // given
+        var timer = lib.Timer()
+
+        // when
+        timer.start()
+        let exp = expectation(description: "")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { timer.lap(); exp.fulfill() }
+        wait(for: [exp], timeout: 0.15)
+        timer.stop()
+
+        // then
+        XCTAssertEqual(timer.laps.count, 1)
+        XCTAssertEqual(timer.laps[0].absolute, 0.1, accuracy: self.accuracy)
+        XCTAssertEqual(timer.laps[0].relative, 0.1, accuracy: self.accuracy)
+        XCTAssertEqual(timer.laps[0].absolute, timer.laps[0].relative)
+        switch timer.status {
+        case .stopped: break
+        default: XCTFail("Timer should be stopped")
+        }
+
+        // when
+        timer.start()
+        let exp2 = expectation(description: "")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { timer.lap(); exp2.fulfill() }
+        wait(for: [exp2], timeout: 0.15)
+        timer.stop()
+        timer.lap()
+        timer.lap()
+
+        // then
+        XCTAssertEqual(timer.laps.count, 4)
+        XCTAssertEqual(timer.laps[0].absolute, 0.1, accuracy: self.accuracy)
+        XCTAssertEqual(timer.laps[0].relative, 0.1, accuracy: self.accuracy)
+        XCTAssertEqual(timer.laps[0].absolute, timer.laps[0].relative)
+        XCTAssertEqual(timer.laps[1].absolute, 0.2, accuracy: self.accuracy)
+        XCTAssertEqual(timer.laps[1].relative, 0.1, accuracy: self.accuracy)
+        XCTAssertEqual(timer.laps[2].absolute, 0.2, accuracy: self.accuracy)
+        XCTAssertEqual(timer.laps[2].relative, 0, accuracy: self.accuracy)
+        XCTAssertEqual(timer.laps[3].absolute, 0.2, accuracy: self.accuracy)
+        XCTAssertEqual(timer.laps[3].relative, 0, accuracy: self.accuracy)
+        XCTAssertEqual(timer.laps[3].absolute, timer.laps[2].absolute)
+        switch timer.status {
+        case .stopped: break
+        default: XCTFail("Timer should be stopped")
         }
     }
 }
