@@ -6,9 +6,9 @@
 @testable import cli
 import XCTest
 
-final class HelpersTest: XCTestCase {}
+final class HelpersTests: XCTestCase {}
 
-extension HelpersTest {
+extension HelpersTests {
     func testCharacterReading() {
         // given
         let filePath = NSTemporaryDirectory().appending("/" + UUID().uuidString + ".txt.tmp")

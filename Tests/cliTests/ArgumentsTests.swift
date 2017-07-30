@@ -6,10 +6,10 @@
 @testable import cli
 import XCTest
 
-final class ArgumentsTest: XCTestCase {}
+final class ArgumentsTests: XCTestCase {}
 
 // MARK: - Creation
-extension ArgumentsTest {
+extension ArgumentsTests {
     func testInitialization() {
         // given
         let expected = (help: false, version: true)
@@ -71,7 +71,7 @@ extension ArgumentsTest {
 }
 
 // MARK: - Helpers
-extension ArgumentsTest {
+extension ArgumentsTests {
     func testExecutablePathFileName() {
         // given
         let args = ["/dev/null", "/foo", "./bar", "../foo/bar/baz", "file", ""]
@@ -87,7 +87,7 @@ extension ArgumentsTest {
 }
 
 // MARK: - Errors
-extension ArgumentsTest {
+extension ArgumentsTests {
     func testErrorDescription() {
         // given
         let error = Arguments.Error.passed("Foo")

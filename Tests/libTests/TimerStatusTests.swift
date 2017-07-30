@@ -6,10 +6,10 @@
 @testable import lib
 import XCTest
 
-final class TimerStatusTest: XCTestCase {}
+final class TimerStatusTests: XCTestCase {}
 
 // MARK: - Equality
-extension TimerStatusTest {
+extension TimerStatusTests {
     func testEquality() {
         // given
         let date = Date()

@@ -6,10 +6,10 @@
 @testable import lib
 import XCTest
 
-final class TimerTest: XCTestCase {}
+final class TimerTests: XCTestCase {}
 
 // MARK: - Cretion
-extension TimerTest {
+extension TimerTests {
     func testInitialization() {
         // when
         let timer = lib.Timer()
@@ -22,7 +22,7 @@ extension TimerTest {
 }
 
 // MARK: - Running
-extension TimerTest {
+extension TimerTests {
     func testStarting() {
         // given
         var timer = lib.Timer()
