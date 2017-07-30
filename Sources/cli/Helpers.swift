@@ -5,13 +5,14 @@
 
 import Foundation
 
+// reads single character from given file
 public func readCharacter(from file: FileHandle) -> Character? {
     let data = file.readData(ofLength: 1)
     let string = String(data: data, encoding: .ascii)
     return string?.characters.first
 }
 
-@discardableResult
+// execute command in posix shell
 public func shell(_ command: String) -> Int32 {
     let task = Process()
     task.launchPath = "/bin/sh"
