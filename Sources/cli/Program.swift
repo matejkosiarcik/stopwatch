@@ -95,6 +95,7 @@ private func print(line: String = "") {
     fflush(stdout) // force terminal to print message; because when buffered it can wait till \n is printed
 }
 
+// swiftlint:disable:next no_extension_access_modifier
 private extension Program {
     private func updateInfo(for timer: lib.Timer) {
         shell("clear")
