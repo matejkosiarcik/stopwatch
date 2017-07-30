@@ -6,10 +6,10 @@
 @testable import lib
 import XCTest
 
-final class LapTest: XCTestCase {}
+final class LapTests: XCTestCase {}
 
 // MARK: - Creation
-extension LapTest {
+extension LapTests {
     func testInitialization() {
         // given
         let times: (TimeInterval, TimeInterval) = (15, 0.46)
@@ -24,7 +24,7 @@ extension LapTest {
 }
 
 // MARK: - Equality
-extension LapTest {
+extension LapTests {
     func testEquality() {
         // given
         let items = [
@@ -46,7 +46,7 @@ extension LapTest {
 }
 
 // MARK: - Formatting
-extension LapTest {
+extension LapTests {
     func testFormatting() {
         // given
         let laps = [

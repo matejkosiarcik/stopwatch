@@ -7,9 +7,9 @@
 import CommandLineKit
 import XCTest
 
-final class CommandLineKitTest: XCTestCase {}
+final class CommandLineKitTests: XCTestCase {}
 
-extension CommandLineKitTest {
+extension CommandLineKitTests {
     func testUsage() {
         // given
         let parser = CommandLineKit.CommandLine()

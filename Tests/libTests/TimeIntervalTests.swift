@@ -6,9 +6,9 @@
 @testable import lib
 import XCTest
 
-final class TimeIntervalTest: XCTestCase {}
+final class TimeIntervalTests: XCTestCase {}
 
-extension TimeIntervalTest {
+extension TimeIntervalTests {
     func testFormatting() {
         // given
         let intervals = [0, 1.345_039_28, 345.999_9, 4_573.68]
