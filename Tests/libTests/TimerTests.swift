@@ -8,6 +8,7 @@ import XCTest
 
 final class TimerTest: XCTestCase {}
 
+// MARK: - Cretion
 extension TimerTest {
     func testInitialization() {
         // when
@@ -18,7 +19,10 @@ extension TimerTest {
         XCTAssertEqual(timer.laps, [])
         XCTAssertEqual(timer.status, .stopped)
     }
+}
 
+// MARK: - Running
+extension TimerTest {
     func testStarting() {
         // given
         var timer = lib.Timer()

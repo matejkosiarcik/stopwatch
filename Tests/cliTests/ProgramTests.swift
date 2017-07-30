@@ -8,7 +8,7 @@ import XCTest
 
 final class ProgramTests: XCTestCase {}
 
-// Initialization
+// MARK: - Creation
 extension ProgramTests {
     func testCreation() {
         // given
@@ -32,7 +32,7 @@ extension ProgramTests {
     }
 }
 
-// Running
+// MARK: - Running
 extension ProgramTests {
     func testHelpOutput() {
         // given

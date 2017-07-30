@@ -8,8 +8,9 @@ import XCTest
 
 final class TimerStatusTest: XCTestCase {}
 
+// MARK: - Equality
 extension TimerStatusTest {
-    func testEquatability() {
+    func testEquality() {
         // given
         let date = Date()
         let reference: [lib.Timer.Status] = [.stopped, .running(date)]

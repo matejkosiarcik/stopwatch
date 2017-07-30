@@ -8,8 +8,7 @@ import XCTest
 
 final class ArgumentsTest: XCTestCase {}
 
-// MARK: - Arguments
-// Initialization
+// MARK: - Creation
 extension ArgumentsTest {
     func testInitialization() {
         // given
@@ -71,7 +70,7 @@ extension ArgumentsTest {
     }
 }
 
-// Helpers
+// MARK: - Helpers
 extension ArgumentsTest {
     func testExecutablePathFileName() {
         // given
@@ -87,7 +86,7 @@ extension ArgumentsTest {
     }
 }
 
-// MARK: - Arguments.Error
+// MARK: - Errors
 extension ArgumentsTest {
     func testErrorDescription() {
         // given
