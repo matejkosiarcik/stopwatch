@@ -34,4 +34,21 @@ extension HelpersTests {
         // then
         XCTAssertEqual(exitCode, expected)
     }
+
+    func testImmediatePrinting() {
+        // given
+        let str = "foo"
+        let uuid = UUID()
+        let tempURL = URL(fileURLWithPath: NSTemporaryDirectory())
+            .appendingPathComponent("StopWatch-\(uuid.uuidString).txt")
+        let mode = "w+"
+        guard let tempFile = fopen(UnsafePointer(tempURL.path), UnsafePointer(mode)) else { XCTFail("Temporary file not opened"); return }
+
+        // when
+        flushPrint(str, to: tempFile)
+
+        // then
+        let content = try? String(contentsOf: tempURL)
+        XCTAssertEqual(content, "foo\r")
+    }
 }

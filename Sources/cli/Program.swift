@@ -40,7 +40,7 @@ extension Program {
         var timer = lib.Timer()
 
         func reportLoop() {
-            print(line: timer.current.formatted)
+            flushPrint(timer.current.formatted, to: stdout)
             DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + 0.005) { reportLoop() }
         }
         reportLoop()
@@ -84,17 +84,12 @@ extension Program {
     }
 }
 
-private func print(line: String = "") {
-    print(line, terminator: "\r")
-    fflush(stdout) // force terminal to print message; because when buffered it can wait till \n is printed
-}
-
 // swiftlint:disable:next no_extension_access_modifier
 private extension Program {
     private func updateInfo(for timer: lib.Timer) {
-        shell("clear")
+        _ = shell("clear")
         print(timer.laps.formatted)
-        print(line: timer.current.formatted)
+        flushPrint(timer.current.formatted, to: stdout)
     }
 }
 

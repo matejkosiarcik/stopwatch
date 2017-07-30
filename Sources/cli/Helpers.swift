@@ -20,3 +20,12 @@ public func shell(_ command: String) -> Int32 {
     task.waitUntilExit()
     return task.terminationStatus
 }
+
+// prints message and immediatelly flushes buffer for given file
+// forces terminal to print message; because when buffered it can wait till \n is printed
+func flushPrint(_ string: String, to file: UnsafeMutablePointer<FILE>) {
+    let line = string + "\r"
+    let chars = line.data(using: .ascii).map { $0.map { Int32($0) } } ?? []
+    chars.forEach { fputc($0, file) }
+    fflush(file)
+}
