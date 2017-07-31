@@ -51,11 +51,11 @@ extension Program {
             if input == .esc { break loop }
             else if input == Character(" ") { timer.status == .stopped ? timer.start() : timer.stop() }
             else if input == Character("\r") || input == Character("\n") { timer.lap() }
-            self.updateInfo(for: timer)
+            self.updateLaps(for: timer)
         }
         timer.lap()
         timer.stop()
-        self.updateInfo(for: timer)
+        self.updateLaps(for: timer)
     }
 }
 
@@ -86,10 +86,9 @@ extension Program {
 
 // swiftlint:disable:next no_extension_access_modifier
 private extension Program {
-    private func updateInfo(for timer: lib.Timer) {
+    func updateLaps(for timer: lib.Timer) {
         _ = shell("clear")
         print(timer.laps.formatted)
-        flushPrint(timer.current.formatted, to: stdout)
     }
 }
 
