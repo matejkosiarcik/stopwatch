@@ -4,7 +4,9 @@ StopWatch is simple CLI (Command line interface) app.
 
 ## Compatibility
 
-Currently only tested on macOS.
+Tested on macOS [10.12]. Should work on Linux (untested).
+
+Requires swift 4.0 or higher.
 
 ## Important
 
