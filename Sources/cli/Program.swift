@@ -49,7 +49,7 @@ extension Program {
         while true {
             guard let input = readCharacter(from: .standardInput) else { continue }
             if input.isStop { break }
-            else if input.isPause { timer.status == .stopped ? timer.start() : timer.stop() }
+            else if input.isPause { timer.toggle() }
             else if input.isLap { timer.lap() }
             self.update(laps: timer.laps)
         }

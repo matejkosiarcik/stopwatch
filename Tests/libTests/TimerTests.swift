@@ -96,6 +96,34 @@ extension TimerTests {
         default: XCTFail("Timer should be stopped")
         }
     }
+
+    func testToggling() {
+        // given
+        var timer = lib.Timer()
+
+        // when
+        timer.toggle()
+        delay(0.1)
+
+        // then
+        XCTAssertEqual(timer.current, 0.1, accuracy: self.accuracy)
+        XCTAssertEqual(timer.laps, [])
+        switch timer.status {
+        case .running: break
+        default: XCTFail("Timer should be running")
+        }
+
+        // when
+        timer.toggle()
+
+        // then
+        XCTAssertEqual(timer.current, 0.1, accuracy: self.accuracy)
+        XCTAssertEqual(timer.laps, [])
+        switch timer.status {
+        case .stopped: break
+        default: XCTFail("Timer should be stopped")
+        }
+    }
 }
 
 // MARK: - Lapping

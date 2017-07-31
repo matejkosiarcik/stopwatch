@@ -37,6 +37,13 @@ extension Timer {
         default: break // do not stop when already stopped
         }
     }
+
+    public mutating func toggle() {
+        switch self.status {
+        case .running: self.stop()
+        case .stopped: self.start()
+        }
+    }
 }
 
 extension Timer {
