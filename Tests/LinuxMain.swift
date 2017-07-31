@@ -35,6 +35,7 @@ extension HelpersTests {
     static var allTests = [
         ("testCharacterReading", testCharacterReading),
         ("testShellExitCode", testShellExitCode),
+        ("testImmediatePrinting", testImmediatePrinting),
     ]
 }
 
