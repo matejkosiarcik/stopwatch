@@ -4,7 +4,6 @@
 //
 
 import CommandLineKit
-import Foundation
 
 extension CommandLineKit.CommandLine {
     var usage: String {
