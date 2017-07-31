@@ -26,7 +26,7 @@ public func shell(_ command: String) -> Int32 {
 // forces terminal to print message; because when buffered it can wait till \n is printed
 func flushPrint(_ string: String, to file: UnsafeMutablePointer<FILE>) {
     let line = string + "\r"
-    let chars = line.data(using: .ascii).map { $0.map { Int32($0) } } ?? []
+    let chars = line.data(using: .utf8).map { $0.map { Int32($0) } } ?? []
     chars.forEach { fputc($0, file) }
     fflush(file)
 }
