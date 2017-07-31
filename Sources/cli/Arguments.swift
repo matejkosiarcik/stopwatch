@@ -4,7 +4,6 @@
 //
 
 import CommandLineKit
-import Foundation
 import Result
 
 public struct Arguments {
