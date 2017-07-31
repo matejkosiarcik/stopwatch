@@ -37,6 +37,7 @@ extension Program {
     }
 
     private func runStopWatch() {
+        _ = shell("clear")
         print("""
             Controls:
              <Enter> - add new lap
