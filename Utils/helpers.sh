@@ -73,5 +73,5 @@ text_files() {
 
 # lists shell files
 shell_files() {
-    find "./Tools" -type f -not -name "*.*" -or -name "*.sh"
+    find "./Utils" -type f -not -name "*.*" -or -name "*.sh"
 }

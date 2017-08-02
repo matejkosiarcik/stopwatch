@@ -8,7 +8,7 @@
 # setup
 set -euf
 cd "$(dirname "${0}")/.."
-. "./Tools/helpers.sh"
+. "./Utils/helpers.sh"
 
 # Swift
 if check swiftlint; then

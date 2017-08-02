@@ -8,7 +8,7 @@
 # setup
 set -euf
 cd "$(dirname "${0}")/.."
-. "./Tools/helpers.sh"
+. "./Utils/helpers.sh"
 
 # All files
 if check git; then
