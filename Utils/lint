@@ -28,7 +28,7 @@ fi
 # Shell
 if check shellcheck; then
     shell_files | while IFS= read -r file; do
-        shellcheck --external-sources "./Tools/helpers.sh" --format gcc "${file}" || true
+        shellcheck --external-sources "./Utils/helpers.sh" --format gcc "${file}" || true
     done
 fi
 if check shfmt; then

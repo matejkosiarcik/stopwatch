@@ -10,12 +10,16 @@ set -euf
 cd "$(dirname "${0}")/.."
 . "./Utils/helpers.sh"
 
+# config output
+output="build/doc"
+rm -rf "${output}" && mkdir -p "${output}"
+
 # Markdown
 if check grip; then
     git_files | while IFS= read -r file; do
         if has_suffix "${file}" ".md"; then
             # declare variables
-            target="${output}/doc/$(dirname "${file}")/$(basename "${file}" ".md").html"
+            target="${output}/$(dirname "${file}")/$(basename "${file}" ".md").html"
             dir="$(dirname "${target}")"
             filename="$(basename "${target}")"
 

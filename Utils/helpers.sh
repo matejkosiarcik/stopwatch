@@ -1,7 +1,7 @@
 #
 # helpers.sh
 # Copyright © 2017 Matej Kosiarcik. All rights reserved.
-# This file contains helper functions for other tools
+# This file contains helper functions for other shell scripts
 #
 
 # Specifies to ShellCheck what shell it should use for linting
