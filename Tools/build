@@ -10,9 +10,6 @@ set -euf
 cd "$(dirname "${0}")/.."
 . "./Tools/helpers.sh"
 
-# Pre build stages
-./Tools/prepare
-
 # config output
 output="build"
 rm -rf "${output}" && mkdir -p "${output}"
