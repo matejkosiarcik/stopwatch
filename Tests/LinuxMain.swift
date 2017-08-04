@@ -2,8 +2,8 @@
 // DO NOT EDIT
 
 //
-// Sourcery.LinuxMain.swift.stencil - original
-// Copyright © 2017 Matej Kosiarcik. All rights reserved.
+// This file is part of Stopwatch which is released under MIT license.
+// See file LICENSE.txt or go to https://github.com/matejkosiarcik/Stopwatch for full license details.
 //
 
 @testable import cliTests
