@@ -65,6 +65,7 @@ git_files() {
 # basically just filters out binary resources from git_files
 text_files() {
     git_files | while IFS= read -r file; do
+        if has_prefix "${file}" "Examples" && ! contains "$(file "${file}")" "text"; then continue; fi
         printf "%s\n" "${file}"
     done
 }
