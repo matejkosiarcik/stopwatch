@@ -1,7 +1,12 @@
+#
+# This file is part of Stopwatch which is released under MIT license.
+# See file LICENSE.txt or go to https://github.com/matejkosiarcik/Stopwatch for full license details.
+#
+
 ---
 extends: default
 
-# For all rules
+# exclude paths
 ignore: |
     .build/
     .git/
@@ -10,4 +15,9 @@ ignore: |
     fastlane/
     Packages/
     Pods/
+
+# Rule customization
+rules:
+    line-length:
+        max: 120
 ...

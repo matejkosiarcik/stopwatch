@@ -1,6 +1,6 @@
 //
-// Program.swift
-// Copyright © 2017 Matej Kosiarcik. All rights reserved.
+// This file is part of Stopwatch which is released under MIT license.
+// See file LICENSE.txt or go to https://github.com/matejkosiarcik/Stopwatch for full license details.
 //
 
 import Foundation
@@ -50,7 +50,11 @@ extension Program {
 
         func reportLoop() {
             flushPrint(timer.current.formatted, to: stdout)
-            DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + 0.005) { reportLoop() }
+            if #available(macOS 10.10, *) {
+                DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + 0.005) { reportLoop() }
+            } else {
+                DispatchQueue.global(priority: .high).asyncAfter(deadline: .now() + 0.005) { reportLoop() }
+            }
         }
         reportLoop()
 

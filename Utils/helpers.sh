@@ -1,7 +1,6 @@
 #
-# helpers.sh
-# Copyright © 2017 Matej Kosiarcik. All rights reserved.
-# This file contains helper functions for other tools
+# This file is part of Stopwatch which is released under MIT license.
+# See file LICENSE.txt or go to https://github.com/matejkosiarcik/Stopwatch for full license details.
 #
 
 # Specifies to ShellCheck what shell it should use for linting
@@ -10,6 +9,7 @@
 # this removes excessive whitespace
 # accepts 1 argument of file to format
 strip() {
+    printf "%s\n" "$(sed -E "s~^	~    ~g" "${1}")" >"${1}"     # replace leading tabs with spaces
     printf "%s\n" "$(sed '/./,$!d' "${1}")" >"${1}"            # remove leading newlines
     printf "%s\n" "$(cat -s "${1}")" >"${1}"                   # strip multiple empty lines and trailing newlines
     printf "%s\n" "$(sed 's~[[:space:]]*$~~' <"${1}")" >"${1}" # remove trailing whitespace
@@ -41,11 +41,12 @@ check() (
 # accepts 2 arguments
 #  - 1. is subject string to test, e.g. "/foo"
 #  - 2. is test string, e.g. "/"
+contains() { case "${1}" in *"${2}"*) true ;; *) false ;; esac; }
 has_prefix() { case "${1}" in "${2}"*) true ;; *) false ;; esac; }
 has_suffix() { case "${1}" in *"${2}") true ;; *) false ;; esac; }
 
-# finds all files in current tree that satisfy conditions
-# conditions:
+# finds all "git" files in project
+# files must match conditions:
 #  - file must not be in ".git" directory
 #  - file must not be ignored by command "git" when "git" is available
 # prints out files that satisfy all conditions
@@ -58,4 +59,18 @@ git_files() {
         if has_prefix "${file}" "./"; then file="$(printf "%s\n" "${file}" | cut -c 3-)"; fi # remove leading ./ from file path
         printf "%s\n" "${file}"
     done
+}
+
+# finds all text files in project
+# basically just filters out binary resources from git_files
+text_files() {
+    git_files | while IFS= read -r file; do
+        if has_prefix "${file}" "Examples" && ! contains "$(file "${file}")" "text"; then continue; fi
+        printf "%s\n" "${file}"
+    done
+}
+
+# lists shell files
+shell_files() {
+    find "./Utils" -type f -not -name "*.*" -or -name "*.sh"
 }

@@ -1,0 +1,21 @@
+#!/bin/sh
+#
+# This file is part of Stopwatch which is released under MIT license.
+# See file LICENSE.txt or go to https://github.com/matejkosiarcik/Stopwatch for full license details.
+#
+
+# setup
+set -euf
+cd "$(dirname "${0}")/.."
+. "./Utils/helpers.sh"
+
+# config output
+output="build"
+rm -rf "${output}" && mkdir -p "${output}"
+
+# Swift
+if check swift; then
+    ln -s "../.build" "${output}/swift"
+    { if [ "${#}" -eq "0" ]; then swift build; else swift build "${@}"; fi; } 2>/dev/null \
+        | grep -Ev "^Compile " | grep -Ev "^Linking " || true # for some reason grep exits with failure
+fi

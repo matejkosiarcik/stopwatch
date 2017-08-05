@@ -1,10 +1,14 @@
+#
+# This file is part of Stopwatch which is released under MIT license.
+# See file LICENSE.txt or go to https://github.com/matejkosiarcik/Stopwatch for full license details.
+#
+
 ### Generic ###
-.build/
 build/
-Generated/
 
 ### SwiftPM generated ###
 /*.xcodeproj
+.build/
 
 ### Swift ###
 # Build generated

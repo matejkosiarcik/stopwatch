@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# This file is part of Stopwatch which is released under MIT license.
+# See file LICENSE.txt or go to https://github.com/matejkosiarcik/Stopwatch for full license details.
+#
+
+# setup
+set -euf
+cd "$(dirname "${0}")/.."
+. "./Utils/helpers.sh"
+
+# Run classic build
+if [ "${#}" -eq "0" ]; then "./Utils/build"; else "./Utils/build" "${@}"; fi
+
+# Swift
+if check swift; then
+    { if [ "${#}" -eq "0" ]; then swift test; else swift test "${@}"; fi; } 2>&1 \
+        | tail -n 2
+fi

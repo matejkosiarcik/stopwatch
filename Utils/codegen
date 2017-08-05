@@ -1,14 +1,13 @@
 #!/bin/sh
 #
-# codegen
-# Copyright © 2017 Matej Kosiarcik. All rights reserved.
-# This file generates sources
+# This file is part of Stopwatch which is released under MIT license.
+# See file LICENSE.txt or go to https://github.com/matejkosiarcik/Stopwatch for full license details.
 #
 
 # setup
 set -euf
 cd "$(dirname "${0}")/.."
-. "./Tools/helpers.sh"
+. "./Utils/helpers.sh"
 
 # Sourcery
 if check sourcery; then

@@ -1,20 +1,16 @@
 #!/bin/sh
 #
-# build
-# Copyright © 2017 Matej Kosiarcik. All rights reserved.
-# This file builds project
+# This file is part of Stopwatch which is released under MIT license.
+# See file LICENSE.txt or go to https://github.com/matejkosiarcik/Stopwatch for full license details.
 #
 
 # setup
 set -euf
 cd "$(dirname "${0}")/.."
-. "./Tools/helpers.sh"
-
-# Pre build stages
-./Tools/prepare
+. "./Utils/helpers.sh"
 
 # config output
-output="build"
+output="build/doc"
 rm -rf "${output}" && mkdir -p "${output}"
 
 # Markdown
@@ -22,7 +18,7 @@ if check grip; then
     git_files | while IFS= read -r file; do
         if has_suffix "${file}" ".md"; then
             # declare variables
-            target="${output}/doc/$(dirname "${file}")/$(basename "${file}" ".md").html"
+            target="${output}/$(dirname "${file}")/$(basename "${file}" ".md").html"
             dir="$(dirname "${target}")"
             filename="$(basename "${target}")"
 
@@ -34,11 +30,4 @@ if check grip; then
             if has_prefix "${filename}" "README"; then ln -s "${filename}" "${dir}/index.html"; fi
         fi
     done
-fi
-
-# Swift
-if check swift; then
-    ln -s "../.build" "${output}/swift"
-    { if [ "${#}" -eq "0" ]; then swift build; else swift build "${@}"; fi; } 2>/dev/null \
-        | grep -Ev "^Compile " | grep -Ev "^Linking " || true # for some reason grep exits with failure
 fi

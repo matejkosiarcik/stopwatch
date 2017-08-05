@@ -1,8 +1,12 @@
 // swift-tools-version:4.0
+//
+// This file is part of Stopwatch which is released under MIT license.
+// See file LICENSE.txt or go to https://github.com/matejkosiarcik/Stopwatch for full license details.
+//
 
 import PackageDescription
 
-let package = Package(name: "StopWatch")
+let package = Package(name: "Stopwatch")
 
 package.dependencies = [
     .package(url: "https://github.com/rxwei/CommandLine.git", from: "3.0.0"),
@@ -11,7 +15,7 @@ package.dependencies = [
 
 package.products = [
    .executable(name: "swatch", targets: ["main"]),
-   .library(name: "StopWatch", targets: ["lib"]),
+   .library(name: "Stopwatch", targets: ["lib"]),
 ]
 
 package.targets = [
