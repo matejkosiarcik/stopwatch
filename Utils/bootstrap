@@ -12,5 +12,5 @@ cd "$(dirname "${0}")/.."
 # SwiftPM
 if check swift; then
     swift package resolve
-    swift package generate-xcodeproj --enable-code-coverage
+    swift package generate-xcodeproj --enable-code-coverage --xcconfig-overrides "Config/Settings.xcconfig"
 fi
