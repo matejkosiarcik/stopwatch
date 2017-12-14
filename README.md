@@ -27,7 +27,8 @@ To **compile**:
 
 ### Download release
 
-Download precompiled binary file from [releases](https://github.com/matejkosiarcik/Stopwatch/releases).
+Download precompiled binary file from
+[releases](https://github.com/matejkosiarcik/Stopwatch/releases).
 
 ### Build from source
 
@@ -41,18 +42,22 @@ Your resulting binary can be found at `$ ./.build/release/swatch`.
 
 Run the binary `$ ./swatch`.
 App prints controls at start, e.g (`space` to pause).
-Laps are reported in format: `(from first start) : (from last recorded lap)`, example:
+Laps are reported in format: `(from first start) : (from last recorded lap)`,
+example:
 
 ![](Examples/example-laps.png)
 
-If you are experiencing troubles, see help page with `$ ./swatch -h` or `$ ./swatch --help`.
+If you are experiencing troubles, see help page with `$ ./swatch -h` or
+`$ ./swatch --help`.
 
 ## Testing
 
-To test the swift part of project, just run ```$ swift test``` in project root.
-To test whole project including swift, shell and other sources, run ```$ ./Utils/test``` in project root.
+To test the swift part of project, just run `$ swift test` in project root.
+To test whole project including swift, shell and other sources, run
+`$ ./Utils/test` in project root.
 
-Not all parts of the app are testable, so always make sure the resulting executable runs correctly.
+Not all parts of the app are testable, so always make sure the resulting
+executable runs correctly.
 
 ## License
 
