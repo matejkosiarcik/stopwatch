@@ -1,4 +1,4 @@
-// Generated using Sourcery 0.7.2 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 0.9.0 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 
 //
@@ -6,8 +6,7 @@
 // See file LICENSE.txt or go to https://github.com/matejkosiarcik/Stopwatch for full license details.
 //
 
-@testable import cliTests
-@testable import libTests
+@testable import CoreTests
 
 extension ArgumentsTests {
     static var allTests = [
@@ -41,10 +40,10 @@ extension HelpersTests {
 
 extension LapTests {
     static var allTests = [
-        ("testFormattingSingleItem", testFormattingSingleItem),
-        ("testFormattingMultipleItems", testFormattingMultipleItems),
         ("testInitialization", testInitialization),
         ("testEquality", testEquality),
+        ("testFormattingSingleItem", testFormattingSingleItem),
+        ("testFormattingMultipleItems", testFormattingMultipleItems),
     ]
 }
 

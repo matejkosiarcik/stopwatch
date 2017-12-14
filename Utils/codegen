@@ -13,7 +13,6 @@ cd "$(dirname "${0}")/.."
 if check sourcery; then
     target="Tests/LinuxMain.swift"
     sourcery --sources Tests/ --templates Templates/Sourcery.LinuxMain.swift.stencil \
-        --args testimports='@testable import cliTests
-@testable import libTests' --output "${target}" >/dev/null
+        --args testimports='@testable import CoreTests' --output "${target}" >/dev/null
     strip "${target}"
 fi
