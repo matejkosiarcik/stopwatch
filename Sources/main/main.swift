@@ -3,7 +3,7 @@
 // See file LICENSE.txt or go to https://github.com/matejkosiarcik/Stopwatch for full license details.
 //
 
-import cli
+import Core
 import Foundation
 
 var helperOutput = ""
