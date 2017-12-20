@@ -11,8 +11,8 @@ excluded:
 
 # rule on/off switching
 disabled_rules:
-    - todo
     - statement_position
+    - todo
 opt_in_rules:
     - attributes
     - closure_end_indentation
