@@ -4,10 +4,8 @@
 # See file LICENSE.txt or go to https://github.com/matejkosiarcik/Stopwatch for full license details.
 #
 
-# setup
 set -euf
 cd "$(dirname "${0}")/.."
-. "./Utils/helpers.sh"
 
 # Sourcery
 target="Tests/LinuxMain.swift"
