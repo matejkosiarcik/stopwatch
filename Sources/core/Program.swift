@@ -105,6 +105,12 @@ extension Program {
 // swiftlint:disable:next no_extension_access_modifier
 private extension Character {
     var isPause: Bool { return self == Character(" ") }
+
     var isLap: Bool { return self == Character("\r") || self == Character("\n") }
-    var isStop: Bool { return self == Character("\u{1B}") } // esc
+
+    var isStop: Bool {
+        return self == Character("q") ||
+        self == Character("Q") ||
+        self == Character("\u{1B}") // esc
+    }
 }
