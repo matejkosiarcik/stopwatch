@@ -34,17 +34,6 @@ extension Program {
     }
 
     private func runStopWatch() {
-        print("""
-            Controls:
-             <Enter> - add new lap
-             <Space> - pause/continue
-             <Esc>   - quit
-
-            Program reports 2 intervals:
-            <absolute> : <relative>
-            """) // show usage to user
-        print()
-
         var timer = Timer()
 
         func reportLoop() {
@@ -87,7 +76,16 @@ private func print(_ string: String, to file: UnsafeMutablePointer<FILE>) {
 
 extension Program {
     private func help() -> String {
-        return self.arguments.usage
+        return self.arguments.usage + "\n" + """
+            Controls:
+            <Enter>      - add new lap
+            <Space>      - pause/continue
+            <Esc> or <Q> - quit
+
+            Program reports intervals in format "<absolute> : <relative>"
+            <absolute> - since the program started
+            <relative> - since last lap
+            """
     }
 }
 
