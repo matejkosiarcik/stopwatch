@@ -31,7 +31,7 @@ extension HelpersTests {
         let str = "foo"
         let uuid = UUID()
         let tempURL = URL(fileURLWithPath: NSTemporaryDirectory())
-            .appendingPathComponent("StopWatch-\(uuid.uuidString).txt")
+            .appendingPathComponent("Stopwatch-\(uuid.uuidString).txt")
         let mode = "w+"
         guard let tempFile = fopen(UnsafePointer(tempURL.path), UnsafePointer(mode))
             else { XCTFail("Temporary file not opened"); return }
