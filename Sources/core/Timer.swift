@@ -6,7 +6,7 @@
 import Foundation
 
 public struct Timer {
-    public private(set) var state = State.stopped
+    private var state = State.stopped
     private var cumulative: TimeInterval = 0
     private var sinceLastLap: TimeInterval = 0
 

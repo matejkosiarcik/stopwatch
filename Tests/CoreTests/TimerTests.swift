@@ -19,7 +19,6 @@ extension TimerTests {
         // then
         XCTAssertEqual(timer.progress.absolute, 0)
         XCTAssertEqual(timer.progress.relative, 0)
-        XCTAssertEqual(timer.state, .stopped)
     }
 }
 
@@ -36,10 +35,6 @@ extension TimerTests {
         // then
         XCTAssertEqual(timer.progress.absolute, 0.2, accuracy: self.accuracy)
         XCTAssertEqual(timer.progress.relative, 0.2, accuracy: self.accuracy)
-        switch timer.state {
-        case .running: break
-        default: XCTFail("Timer should be running")
-        }
     }
 
     func testMultipleStarts() {
@@ -54,10 +49,6 @@ extension TimerTests {
         // then
         XCTAssertEqual(timer.progress.absolute, 0.2, accuracy: self.accuracy)
         XCTAssertEqual(timer.progress.relative, 0.2, accuracy: self.accuracy)
-        switch timer.state {
-        case .running: break
-        default: XCTFail("Timer should be running")
-        }
     }
 
     func testStopping() {
@@ -72,7 +63,6 @@ extension TimerTests {
         // then
         XCTAssertEqual(timer.progress.absolute, 0.2, accuracy: self.accuracy)
         XCTAssertEqual(timer.progress.relative, 0.2, accuracy: self.accuracy)
-        XCTAssertTrue(timer.state == .stopped)
     }
 
     func testMultipleStops() {
@@ -88,7 +78,6 @@ extension TimerTests {
         // then
         XCTAssertEqual(timer.progress.absolute, 0.2, accuracy: self.accuracy)
         XCTAssertEqual(timer.progress.relative, 0.2, accuracy: self.accuracy)
-        XCTAssertTrue(timer.state == .stopped)
     }
 
     func testToggling() {
@@ -102,10 +91,6 @@ extension TimerTests {
         // then
         XCTAssertEqual(timer.progress.absolute, 0.1, accuracy: self.accuracy)
         XCTAssertEqual(timer.progress.relative, 0.1, accuracy: self.accuracy)
-        switch timer.state {
-        case .running: break
-        default: XCTFail("Timer should be running")
-        }
 
         // when
         timer.toggle()
@@ -113,7 +98,6 @@ extension TimerTests {
         // then
         XCTAssertEqual(timer.progress.absolute, 0.1, accuracy: self.accuracy)
         XCTAssertEqual(timer.progress.relative, 0.1, accuracy: self.accuracy)
-        XCTAssertTrue(timer.state == .stopped)
     }
 }
 
@@ -133,9 +117,5 @@ extension TimerTests {
         // then
         XCTAssertEqual(timer.progress.absolute, 0.3, accuracy: self.accuracy)
         XCTAssertEqual(timer.progress.relative, 0.1, accuracy: self.accuracy)
-        switch timer.state {
-        case .running: break
-        default: XCTFail("Timer should be running")
-        }
     }
 }
