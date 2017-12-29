@@ -12,14 +12,13 @@ final class ArgumentsTests: XCTestCase {}
 extension ArgumentsTests {
     func testInitialization() {
         // given
-        let expected = (help: false, version: true)
+        let expected: (Bool) = (false)
 
         // when
-        let args = Arguments(path: "", help: false, version: true, usage: "")
+        let args = Arguments(help: false, usage: "")
 
         // then
-        XCTAssertEqual(args.help, expected.help)
-        XCTAssertEqual(args.version, expected.version)
+        XCTAssertEqual(args.help, expected)
     }
 
     func testUnsuccessfulParsing() {
@@ -49,12 +48,7 @@ extension ArgumentsTests {
         // given
         let arguments = [
             ["", "-h"],
-            ["", "-V"],
-            ["", "--version"],
             ["", "--help"],
-            ["", "-h", "-V"],
-            ["", "-V", "--help"],
-            ["", "-hV"],
             ]
 
         // when
@@ -67,22 +61,6 @@ extension ArgumentsTests {
             case .failure(let x): XCTFail(String(describing: x) + " " + $0.offset.description)
             }
         }
-    }
-}
-
-// MARK: - Helpers
-extension ArgumentsTests {
-    func testExecutablePathFileName() {
-        // given
-        let args = ["/dev/null", "/foo", "./bar", "../foo/bar/baz", "file", ""]
-            .map { Arguments(path: $0, help: false, version: false, usage: "") }
-        let expected = ["null", "foo", "bar", "baz", "file", ""]
-
-        // when
-        let tested = args.map { $0.executableFileName }
-
-        // then
-        XCTAssertEqual(tested, expected)
     }
 }
 

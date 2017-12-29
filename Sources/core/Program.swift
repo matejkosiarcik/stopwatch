@@ -22,11 +22,9 @@ extension Program {
 }
 
 extension Program {
-    public func main(output: inout String) -> ExitCode {
+    public func main() -> ExitCode {
         if self.arguments.help {
-            print(self.help(), to: &output)
-        } else if self.arguments.version {
-            print(self.version(), to: &output)
+            print(self.help())
         } else {
             // TODO: change type(of: ) to Self, after SE-0068 is implemented
             type(of: self).setUp()
@@ -36,19 +34,21 @@ extension Program {
     }
 
     private func runStopWatch() {
-        _ = shell("clear")
         print("""
             Controls:
              <Enter> - add new lap
              <Space> - pause/continue
              <Esc>   - quit
+
+            Program reports 2 intervals:
+            <absolute> : <relative>
             """) // show usage to user
         print()
 
         var timer = Timer()
 
         func reportLoop() {
-            flushPrint(timer.current.formatted, to: stdout)
+            report(timer.progress.formatted, to: stdout)
             if #available(macOS 10.10, *) {
                 DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + 0.005) { reportLoop() }
             } else {
@@ -62,25 +62,32 @@ extension Program {
             guard let input = readCharacter(from: .standardInput) else { continue }
             if input.isStop { break }
             else if input.isPause { timer.toggle() }
-            else if input.isLap { timer.lap() }
-            self.update(laps: timer.laps)
+            else if input.isLap { timer.lap(); lap(to: stdout) }
         }
-        timer.lap()
         timer.stop()
-        self.update(laps: timer.laps)
+        lap(to: stdout)
     }
+}
+
+// prints message and immediatelly flushes buffer for given file
+// forces terminal to print message; because when buffered it can wait till \n is printed
+func report(_ string: String, to file: UnsafeMutablePointer<FILE>) {
+    print("\r" + string, to: file)
+}
+
+func lap(to file: UnsafeMutablePointer<FILE>) {
+    print("\n", to: file)
+}
+
+private func print(_ string: String, to file: UnsafeMutablePointer<FILE>) {
+    let chars = string.data(using: .utf8).map { $0.map { Int32($0) } } ?? []
+    chars.forEach { fputc($0, file) }
+    fflush(file)
 }
 
 extension Program {
     private func help() -> String {
         return self.arguments.usage
-    }
-
-    private func version() -> String {
-        return """
-            StopWatch - CLI stopwatch application
-            version: 0.2.1
-            """
     }
 }
 
@@ -90,18 +97,10 @@ extension Program {
         setbuf(stdin, nil)
         setvbuf(stdin, nil, _IONBF, 0)
         var input = termios()
-        tcgetattr(STDIN_FILENO, &input)
+        tcgetattr(fileno(stdin), &input)
         input.c_lflag = tcflag_t(Int32(input.c_lflag) & ~ICANON)
-        tcsetattr(STDIN_FILENO, TCSANOW, &input)
-    }
-}
-
-// swiftlint:disable:next no_extension_access_modifier
-private extension Program {
-    func update(laps: [Timer.Lap]) {
-        _ = shell("clear")
-        let laps = laps.formatted
-        if laps != "" { print(laps) }
+        input.c_lflag = tcflag_t(Int32(input.c_lflag) & ~ECHO) // also disable echoing of input characters
+        tcsetattr(fileno(stdin), TCSANOW, &input)
     }
 }
 

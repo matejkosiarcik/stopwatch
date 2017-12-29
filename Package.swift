@@ -9,7 +9,7 @@ package.dependencies = [
 ]
 
 package.products = [
-   .executable(name: "swatch", targets: ["main"]),
+    .executable(name: "swatch", targets: ["main"]),
 ]
 
 package.targets = [

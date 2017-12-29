@@ -17,9 +17,8 @@ extension TimerTests {
         let timer = Timer()
 
         // then
-        XCTAssertEqual(timer.current, 0)
-        XCTAssertEqual(timer.laps, [])
-        XCTAssertEqual(timer.status, .stopped)
+        XCTAssertEqual(timer.progress.absolute, 0)
+        XCTAssertEqual(timer.progress.relative, 0)
     }
 }
 
@@ -34,12 +33,8 @@ extension TimerTests {
         delay(0.2)
 
         // then
-        XCTAssertEqual(timer.current, 0.2, accuracy: self.accuracy)
-        XCTAssertEqual(timer.laps, [])
-        switch timer.status {
-        case .running: break
-        default: XCTFail("Timer should be running")
-        }
+        XCTAssertEqual(timer.progress.absolute, 0.2, accuracy: self.accuracy)
+        XCTAssertEqual(timer.progress.relative, 0.2, accuracy: self.accuracy)
     }
 
     func testMultipleStarts() {
@@ -52,12 +47,8 @@ extension TimerTests {
         timer.start()
 
         // then
-        XCTAssertEqual(timer.current, 0.2, accuracy: self.accuracy)
-        XCTAssertEqual(timer.laps, [])
-        switch timer.status {
-        case .running: break
-        default: XCTFail("Timer should be running")
-        }
+        XCTAssertEqual(timer.progress.absolute, 0.2, accuracy: self.accuracy)
+        XCTAssertEqual(timer.progress.relative, 0.2, accuracy: self.accuracy)
     }
 
     func testStopping() {
@@ -70,9 +61,8 @@ extension TimerTests {
         timer.stop()
 
         // then
-        XCTAssertEqual(timer.current, 0.2, accuracy: self.accuracy)
-        XCTAssertEqual(timer.laps, [])
-        XCTAssertTrue(timer.status == .stopped)
+        XCTAssertEqual(timer.progress.absolute, 0.2, accuracy: self.accuracy)
+        XCTAssertEqual(timer.progress.relative, 0.2, accuracy: self.accuracy)
     }
 
     func testMultipleStops() {
@@ -86,9 +76,8 @@ extension TimerTests {
         timer.stop()
 
         // then
-        XCTAssertEqual(timer.current, 0.2, accuracy: self.accuracy)
-        XCTAssertEqual(timer.laps, [])
-        XCTAssertTrue(timer.status == .stopped)
+        XCTAssertEqual(timer.progress.absolute, 0.2, accuracy: self.accuracy)
+        XCTAssertEqual(timer.progress.relative, 0.2, accuracy: self.accuracy)
     }
 
     func testToggling() {
@@ -100,52 +89,20 @@ extension TimerTests {
         delay(0.1)
 
         // then
-        XCTAssertEqual(timer.current, 0.1, accuracy: self.accuracy)
-        XCTAssertEqual(timer.laps, [])
-        switch timer.status {
-        case .running: break
-        default: XCTFail("Timer should be running")
-        }
+        XCTAssertEqual(timer.progress.absolute, 0.1, accuracy: self.accuracy)
+        XCTAssertEqual(timer.progress.relative, 0.1, accuracy: self.accuracy)
 
         // when
         timer.toggle()
 
         // then
-        XCTAssertEqual(timer.current, 0.1, accuracy: self.accuracy)
-        XCTAssertEqual(timer.laps, [])
-        XCTAssertTrue(timer.status == .stopped)
+        XCTAssertEqual(timer.progress.absolute, 0.1, accuracy: self.accuracy)
+        XCTAssertEqual(timer.progress.relative, 0.1, accuracy: self.accuracy)
     }
 }
 
 // MARK: - Lapping
 extension TimerTests {
-    func testStationaryLaps() {
-        // given
-        var timer = Timer()
-
-        // when
-        timer.start()
-        delay(0.2)
-        timer.stop()
-        timer.lap()
-        timer.lap()
-        timer.lap()
-
-        // then
-        XCTAssertEqual(timer.laps.count, 3)
-        XCTAssertEqual(timer.laps[0].absolute, 0.2, accuracy: self.accuracy)
-        XCTAssertEqual(timer.laps[0].relative, 0.2, accuracy: self.accuracy)
-        XCTAssertEqual(timer.laps[0].absolute, timer.laps[0].relative)
-        XCTAssertEqual(timer.laps[1].absolute, 0.2, accuracy: self.accuracy)
-        XCTAssertEqual(timer.laps[1].relative, 0, accuracy: self.accuracy)
-        XCTAssertEqual(timer.laps[1].absolute, timer.laps[0].absolute)
-        XCTAssertEqual(timer.laps[2].absolute, 0.2, accuracy: self.accuracy)
-        XCTAssertEqual(timer.laps[2].relative, 0, accuracy: self.accuracy)
-        XCTAssertEqual(timer.laps[2].absolute, timer.laps[1].absolute)
-        XCTAssertEqual(timer.current, 0.2, accuracy: self.accuracy)
-        XCTAssertTrue(timer.status == .stopped)
-    }
-
     func testTrivialLapping() {
         // given
         var timer = Timer()
@@ -158,59 +115,7 @@ extension TimerTests {
         timer.lap()
 
         // then
-        XCTAssertEqual(timer.laps.count, 2)
-        XCTAssertEqual(timer.laps[0].absolute, 0.2, accuracy: self.accuracy)
-        XCTAssertEqual(timer.laps[0].relative, 0.2, accuracy: self.accuracy)
-        XCTAssertEqual(timer.laps[0].absolute, timer.laps[0].relative)
-        XCTAssertEqual(timer.laps[1].absolute, 0.3, accuracy: self.accuracy)
-        XCTAssertEqual(timer.laps[1].relative, 0.1, accuracy: self.accuracy)
-        XCTAssertEqual(timer.current, 0.3, accuracy: self.accuracy)
-        switch timer.status {
-        case .running: break
-        default: XCTFail("Timer should be running")
-        }
-    }
-
-    func testComplicatedLapping() {
-        // given
-        var timer = Timer()
-
-        // when
-        timer.start()
-        delay(0.1)
-        timer.lap()
-        timer.stop()
-
-        // then
-        XCTAssertEqual(timer.laps.count, 1)
-        XCTAssertEqual(timer.laps[0].absolute, 0.1, accuracy: self.accuracy)
-        XCTAssertEqual(timer.laps[0].relative, 0.1, accuracy: self.accuracy)
-        XCTAssertEqual(timer.laps[0].absolute, timer.laps[0].relative)
-        switch timer.status {
-        case .stopped: break
-        default: XCTFail("Timer should be stopped")
-        }
-
-        // when
-        timer.start()
-        delay(0.1)
-        timer.lap()
-        timer.stop()
-        timer.lap()
-        timer.lap()
-
-        // then
-        XCTAssertEqual(timer.laps.count, 4)
-        XCTAssertEqual(timer.laps[0].absolute, 0.1, accuracy: self.accuracy)
-        XCTAssertEqual(timer.laps[0].relative, 0.1, accuracy: self.accuracy)
-        XCTAssertEqual(timer.laps[0].absolute, timer.laps[0].relative)
-        XCTAssertEqual(timer.laps[1].absolute, 0.2, accuracy: self.accuracy)
-        XCTAssertEqual(timer.laps[1].relative, 0.1, accuracy: self.accuracy)
-        XCTAssertEqual(timer.laps[2].absolute, 0.2, accuracy: self.accuracy)
-        XCTAssertEqual(timer.laps[2].relative, 0, accuracy: self.accuracy)
-        XCTAssertEqual(timer.laps[3].absolute, 0.2, accuracy: self.accuracy)
-        XCTAssertEqual(timer.laps[3].relative, 0, accuracy: self.accuracy)
-        XCTAssertEqual(timer.laps[3].absolute, timer.laps[2].absolute)
-        XCTAssertTrue(timer.status == .stopped)
+        XCTAssertEqual(timer.progress.absolute, 0.3, accuracy: self.accuracy)
+        XCTAssertEqual(timer.progress.relative, 0.1, accuracy: self.accuracy)
     }
 }

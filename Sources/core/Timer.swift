@@ -6,67 +6,76 @@
 import Foundation
 
 public struct Timer {
-    public private(set) var status = Status.stopped
-
-    private var _laps = [TimeInterval]()
-    private var previous: TimeInterval = 0
+    private var state = State.stopped
+    private var cumulative: TimeInterval = 0
+    private var sinceLastLap: TimeInterval = 0
 
     public init() {}
 }
 
 extension Timer {
-    public var current: TimeInterval {
-        switch self.status {
-        case .running(let start): return self.previous + abs(start.timeIntervalSinceNow)
-        case .stopped: return self.previous
+    private var current: TimeInterval {
+        switch self.state {
+        case .running(let start):
+            return abs(start.timeIntervalSinceNow)
+        case .stopped:
+            return 0
         }
+    }
+
+    public var progress: Lap {
+        let current = self.current
+        return Lap(absolute: self.cumulative + current, relative: self.sinceLastLap + current)
     }
 }
 
 extension Timer {
     public mutating func start() {
-        switch self.status {
-        case .stopped: self.status = .running(Date())
+        switch self.state {
+        case .stopped: self.state = .running(Date())
         default: break // do not start when already running
         }
     }
 
     public mutating func stop() {
-        switch self.status {
-        case .running(let start): self.previous += abs(start.timeIntervalSinceNow); self.status = .stopped
+        switch self.state {
+        case .running(let start):
+            let interval = abs(start.timeIntervalSinceNow)
+            self.sinceLastLap += interval
+            self.cumulative += interval
+            self.state = .stopped
         default: break // do not stop when already stopped
         }
     }
 
     public mutating func toggle() {
-        switch self.status {
+        switch self.state {
         case .running: self.stop()
         case .stopped: self.start()
+        }
+    }
+
+    public mutating func lap() {
+        switch self.state {
+        case .running:
+            self.stop()
+            self.sinceLastLap = 0
+            self.start()
+        default:
+            self.sinceLastLap = 0
         }
     }
 }
 
 extension Timer {
-    public var laps: [Lap] {
-        return zip(self._laps, [0] + self._laps.dropLast()).map { Lap(absolute: $0.0, relative: $0.0 - $0.1) }
-    }
-}
-
-extension Timer {
-    public mutating func lap() {
-        self._laps.append(self.current)
-    }
-}
-
-extension Timer {
-    public enum Status {
+    public enum State {
         case running(Date)
         case stopped
     }
 }
 
-extension Timer.Status: Equatable {
-    public static func == (lhs: Timer.Status, rhs: Timer.Status) -> Bool {
+extension Timer.State: Equatable {
+    public static func == (lhs: Timer.State, rhs: Timer.State) -> Bool {
         switch (lhs, rhs) {
         case (.running(let x), .running(let y)): return x == y
         case (.stopped, .stopped): return true
