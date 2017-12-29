@@ -6,21 +6,21 @@
 import Foundation
 
 extension Timer {
-    public struct Lap {
+    public struct Interval {
         public var absolute: TimeInterval // time from the very start
         public var relative: TimeInterval // time from last lap
     }
 }
 
-extension Timer.Lap: Equatable {
-    public static func == (lhs: Timer.Lap, rhs: Timer.Lap) -> Bool {
+extension Timer.Interval: Equatable {
+    public static func == (lhs: Timer.Interval, rhs: Timer.Interval) -> Bool {
         guard lhs.absolute == rhs.absolute else { return false }
         guard lhs.relative == rhs.relative else { return false }
         return true
     }
 }
 
-extension Timer.Lap {
+extension Timer.Interval {
     public var formatted: String {
         return "\(self.absolute.formatted) : \(self.relative.formatted)"
     }

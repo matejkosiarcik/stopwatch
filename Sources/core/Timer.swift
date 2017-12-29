@@ -23,9 +23,9 @@ extension Timer {
         }
     }
 
-    public var progress: Lap {
+    public var progress: Interval {
         let current = self.current
-        return Lap(absolute: self.cumulative + current, relative: self.sinceLastLap + current)
+        return Interval(absolute: self.cumulative + current, relative: self.sinceLastLap + current)
     }
 }
 

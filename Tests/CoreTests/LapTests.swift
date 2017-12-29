@@ -15,7 +15,7 @@ extension LapTests {
         let times: (TimeInterval, TimeInterval) = (15, 0.46)
 
         // when
-        let lap = Timer.Lap(absolute: times.0, relative: times.1)
+        let lap = Timer.Interval(absolute: times.0, relative: times.1)
 
         // then
         XCTAssertEqual(lap.absolute, times.0)
@@ -33,7 +33,7 @@ extension LapTests {
             (10, 4.9),
             (3, 5),
             (100, 100),
-            ].map { Timer.Lap(absolute: $0.0, relative: $0.1) }
+            ].map { Timer.Interval(absolute: $0.0, relative: $0.1) }
         let comparator = items[0]
         let expected = [true] + [Bool](repeating: false, count: 4)
 
@@ -53,7 +53,7 @@ extension LapTests {
             (5, 4),
             (1.5, 1.5),
             (1.5, 2.075),
-            ].map { Timer.Lap(absolute: $0.0, relative: $0.1) }
+            ].map { Timer.Interval(absolute: $0.0, relative: $0.1) }
         let expected = [
             "00:00:05.000 : 00:00:04.000",
             "00:00:01.500 : 00:00:01.500",
