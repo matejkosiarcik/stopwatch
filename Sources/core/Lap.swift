@@ -22,7 +22,6 @@ extension Timer.Lap: Equatable {
 
 extension Timer.Lap {
     public var formatted: String {
-        if self.absolute == self.relative { return "\(self.absolute.formatted) : -" }
         return "\(self.absolute.formatted) : \(self.relative.formatted)"
     }
 }

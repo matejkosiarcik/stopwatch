@@ -39,13 +39,16 @@ extension Program {
              <Enter> - add new lap
              <Space> - pause/continue
              <Esc>   - quit
+
+            Program reports 2 intervals:
+            <absolute> : <relative>
             """) // show usage to user
         print()
 
         var timer = Timer()
 
         func reportLoop() {
-            report(timer.current.formatted, to: stdout)
+            report(timer.progress.formatted, to: stdout)
             if #available(macOS 10.10, *) {
                 DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + 0.005) { reportLoop() }
             } else {
@@ -59,7 +62,7 @@ extension Program {
             guard let input = readCharacter(from: .standardInput) else { continue }
             if input.isStop { break }
             else if input.isPause { timer.toggle() }
-            else if input.isLap { lap(to: stdout) }
+            else if input.isLap { timer.lap(); lap(to: stdout) }
         }
         timer.stop()
         lap(to: stdout)
@@ -96,7 +99,7 @@ extension Program {
         var input = termios()
         tcgetattr(fileno(stdin), &input)
         input.c_lflag = tcflag_t(Int32(input.c_lflag) & ~ICANON)
-        input.c_lflag = tcflag_t(Int32(input.c_lflag) & ~ECHO)
+        input.c_lflag = tcflag_t(Int32(input.c_lflag) & ~ECHO) // also disable echoing of input characters
         tcsetattr(fileno(stdin), TCSANOW, &input)
     }
 }

@@ -13,8 +13,8 @@ extension TimerStatusTests {
     func testEquality() {
         // given
         let date = Date()
-        let reference: [Core.Timer.Status] = [.stopped, .running(date)]
-        let testers: [Core.Timer.Status] = [.stopped, .running(date), .running(Date())]
+        let reference: [Core.Timer.State] = [.stopped, .running(date)]
+        let testers: [Core.Timer.State] = [.stopped, .running(date), .running(Date())]
         let expected = [[true, false, false], [false, true, false]].flatMap { $0 }
 
         // when
