@@ -3,8 +3,8 @@
 // See file LICENSE.txt or go to https://github.com/matejkosiarcik/Stopwatch for full license details.
 //
 
-import XCTest
 {{ argument.testimports }}
+import XCTest
 
 {% for type in types.classes|based:"XCTestCase" %}
 {% if not type.annotations.disableTests %}extension {{ type.name }} {
