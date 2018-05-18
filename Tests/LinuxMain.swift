@@ -14,7 +14,6 @@ extension ArgumentsTests {
         ("testInitialization", testInitialization),
         ("testUnsuccessfulParsing", testUnsuccessfulParsing),
         ("testSuccessfulParsing", testSuccessfulParsing),
-        ("testExecutablePathFileName", testExecutablePathFileName),
         ("testErrorDescription", testErrorDescription),
     ]
 }
@@ -34,7 +33,6 @@ extension DelayTests {
 extension HelpersTests {
     static var allTests = [
         ("testCharacterReading", testCharacterReading),
-        ("testShellExitCode", testShellExitCode),
         ("testImmediatePrinting", testImmediatePrinting),
     ]
 }
@@ -44,15 +42,12 @@ extension LapTests {
         ("testInitialization", testInitialization),
         ("testEquality", testEquality),
         ("testFormattingSingleItem", testFormattingSingleItem),
-        ("testFormattingMultipleItems", testFormattingMultipleItems),
     ]
 }
 
 extension ProgramTests {
     static var allTests = [
         ("testCreation", testCreation),
-        ("testHelpOutput", testHelpOutput),
-        ("testVersionOutput", testVersionOutput),
     ]
 }
 
@@ -76,9 +71,7 @@ extension TimerTests {
         ("testStopping", testStopping),
         ("testMultipleStops", testMultipleStops),
         ("testToggling", testToggling),
-        ("testStationaryLaps", testStationaryLaps),
         ("testTrivialLapping", testTrivialLapping),
-        ("testComplicatedLapping", testComplicatedLapping),
     ]
 }
 
