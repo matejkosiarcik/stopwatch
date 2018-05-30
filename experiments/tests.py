@@ -2,7 +2,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 import datetime
 import time
 import unittest
-import main
+from stopwatch import stopwatch
 
 
 class MainTests(unittest.TestCase):
@@ -16,7 +16,7 @@ class MainTests(unittest.TestCase):
         ]
 
         for entry in data:
-            self.assertEqual(main.delta_formatted(entry[0]), entry[1])
+            self.assertEqual(stopwatch.delta_formatted(entry[0]), entry[1])
 
 
 class TimerTests(unittest.TestCase):
@@ -35,7 +35,7 @@ class TimerTests(unittest.TestCase):
             data['time_relative'] = delta_relative.total_seconds()
             data['time_absolute'] = delta_absolute.total_seconds()
 
-        timer = main.Timer(update)
+        timer = stopwatch.Timer(update)
         operations(timer)
         return data
 

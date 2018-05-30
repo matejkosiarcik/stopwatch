@@ -62,12 +62,16 @@ class Timer:
             time.sleep(0.001)
 
 
-def main(arguments):
+def main(argv = None):
     """Main script function"""
+
+    # get arguments when not available
+    if argv is None:
+        argv = sys.argv
+
     # parse arguments
     parser = argparse.ArgumentParser()
-    # TODO: add quiet, usage
-    arguments = parser.parse_args(arguments[1:])
+    parser.parse_args(argv[1:])
 
     # print usage
     print("Controls:\n"
