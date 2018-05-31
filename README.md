@@ -2,7 +2,7 @@
 
 > Stopwatch is a simple time tracking cli app
 
-![Program screen after start](Examples/example-laps.png)
+![Program screen](docs/example.png)
 
 - [Requirements](#requirements)
 - [Installation](#installation)
