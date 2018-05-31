@@ -19,7 +19,7 @@
 
 ### With package manager
 
-*This method is not available yet.*
+This method is *not available yet*.
 
 ### Manually
 
