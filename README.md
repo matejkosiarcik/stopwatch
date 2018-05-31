@@ -1,8 +1,8 @@
 # Stopwatch
 
-> Stopwatch is command line application and library for time tracking.
+> Stopwatch is a simple time tracking cli app
 
-![](Examples/example-start.png)
+![Program screen after start](Examples/example-laps.png)
 
 - [Requirements](#requirements)
 - [Installation](#installation)
@@ -12,52 +12,56 @@
 
 ## Requirements
 
-To **use**:
-
-- macOS 10.9+
-
-*Linux support is in the works*.
-
-To **compile**:
-
-- Swift 4.0+
-- Xcode 9.0+ (optional)
+- Python
+  - version 2.7+ or 3.5+
 
 ## Installation
 
-### Download release
+### With package manager
 
-Download precompiled binary file from
-[releases](https://github.com/matejkosiarcik/Stopwatch/releases).
+*This method is not available yet.*
 
-### Build from source
+### Manually
 
-Clone the repository `$ git clone git@github.com:matejkosiarcik/Stopwatch.git`
-or download repository manually as `.zip` file and unzip it.
+Download project as zip and unzip it,
+&lt;OR&gt;,
+clone the project with
+`$ git clone https://github.com/matejkosiarcik/Stopwatch.git`.
+Then run:
 
-Navigate to project root `$ cd Stopwatch` and run `$ swift build -c release`.
-Your resulting binary can be found at `$ ./.build/release/swatch`.
+```sh
+cd Stopwatch
+pip install .
+# If you do not have pip installed, try: $ python setup.py install
+```
+
+#### Alternative
+
+If you dislike aforementioned forms of installation, you can just download
+single script file `stopwatch` from releases and put it somewhere under your
+`PATH`.
 
 ## Usage
 
-Run the binary `$ ./swatch`.
-App prints controls at start, e.g (`space` to pause).
-Laps are reported in format: `(from first start) : (from last recorded lap)`,
-example:
+Run the program `$ stopwatch`.
 
-![](Examples/example-laps.png)
+Controls:
 
-If you are experiencing troubles, see help page with `$ ./swatch -h` or
-`$ ./swatch --help`.
+Key | description
+--- | ---
+&lt;Enter&gt; | new lap
+&lt;Space&gt; | pause/continue
+&lt;ESC&gt; or &lt;Q&gt; | quit
+
+If you are experiencing troubles, see help page with `$ stopwatch -h` or
+`$ stopwatch --help`.
 
 ## Testing
 
-To test the swift part of project, just run `$ swift test` in project root.
-To test whole project including swift, shell and other sources, run
-`$ ./Utils/test` in project root.
+To test project, run `$ python tests.py`.
 
-Not all parts of the app are testable, so always make sure the resulting
-executable runs correctly.
+Not all parts of the program are testable, so always make sure the program runs
+correctly.
 
 ## License
 
