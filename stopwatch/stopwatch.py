@@ -88,11 +88,6 @@ def main(argv=None):
     print("        split-time     total-time")
     print("       ------------   ------------")
 
-    # well, get to work
-    program()
-
-
-def program():
     # setup
     attributes = termios.tcgetattr(sys.stdin.fileno())
     attributes[3] = attributes[3] & ~termios.ECHO
