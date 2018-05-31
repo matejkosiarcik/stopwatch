@@ -20,31 +20,13 @@ class MainTests(unittest.TestCase):
 
 class TimerTests(unittest.TestCase):
 
-    def _help_test_timer(self, operations):
-        data = {
-            'called': False,
-            'lap': 0,
-            'time_relative': 0.0,
-            'time_absolute': 0.0,
-        }
-
-        def update(lap, delta_relative, delta_absolute):
-            data['called'] = True
-            data['lap'] = lap
-            data['time_relative'] = delta_relative.total_seconds()
-            data['time_absolute'] = delta_absolute.total_seconds()
-
-        timer = stopwatch.Timer(update)
-        operations(timer)
-        return data
-
     def test_timer_basic(self):
         def operations(timer):
             timer.start()
             time.sleep(0.02)
             timer.stop()
 
-        data = self._help_test_timer(operations)
+        data = timer_execute(operations)
 
         self.assertEqual(data['lap'], 1)
         self.assertAlmostEqual(data['time_relative'], 0.02, delta=0.01)
@@ -60,7 +42,7 @@ class TimerTests(unittest.TestCase):
             time.sleep(0.01)
             timer.stop()
 
-        data = self._help_test_timer(operations)
+        data = timer_execute(operations)
 
         self.assertEqual(data['lap'], 1)
         self.assertAlmostEqual(data['time_relative'], 0.02, delta=0.01)
@@ -72,7 +54,7 @@ class TimerTests(unittest.TestCase):
             timer.stop()
             timer.lap()
 
-        data = self._help_test_timer(operations)
+        data = timer_execute(operations)
 
         self.assertEqual(data['lap'], 2)
         self.assertAlmostEqual(data['time_relative'], 0, delta=0.002)
@@ -88,11 +70,30 @@ class TimerTests(unittest.TestCase):
             time.sleep(0.01)
             timer.stop()
 
-        data = self._help_test_timer(operations)
+        data = timer_execute(operations)
 
         self.assertEqual(data['lap'], 2)
         self.assertAlmostEqual(data['time_relative'], 0.01, delta=0.01)
         self.assertAlmostEqual(data['time_absolute'], 0.02, delta=0.01)
+
+
+def timer_execute(operations):
+    data = {
+        'called': False,
+        'lap': 0,
+        'time_relative': 0.0,
+        'time_absolute': 0.0,
+    }
+
+    def update(lap, delta_relative, delta_absolute):
+        data['called'] = True
+        data['lap'] = lap
+        data['time_relative'] = delta_relative.total_seconds()
+        data['time_absolute'] = delta_absolute.total_seconds()
+
+    timer = stopwatch.Timer(update)
+    operations(timer)
+    return data
 
 
 if __name__ == '__main__':
