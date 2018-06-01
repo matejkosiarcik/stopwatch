@@ -26,10 +26,10 @@ class TimerTests(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super(TimerTests, self).__init__(*args, **kwargs)
         if sys.version_info < (2, 7):
-            def assert_almost_equal(first, second, delta):
-                self.assertTrue(first + delta >= second)
-                self.assertTrue(first - delta <= second)
-            self.assertAlmostEqual = assert_almost_equal
+            def assert_almost_equal(self, first, second, delta):
+                self.assertTrue(self, first + delta >= second)
+                self.assertTrue(self, first - delta <= second)
+            TimerTests.assertAlmostEqual = assert_almost_equal
 
     def test_timer_basic(self):
         def operations(timer):
