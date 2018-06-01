@@ -36,10 +36,12 @@ matrix:
     - python: 3.8-dev
     - python: nightly
 
+install:
+  -
+
 script:
-  - set -euf
   - if [ "$(printf '%s\n' "${TRAVIS_PYTHON_VERSION}" | tr -d '.')" -le '35' ]; then
-      py.test;
+      py.test 'tests.py';
     else
-      pytest;
+      pytest 'tests.py';
     fi
