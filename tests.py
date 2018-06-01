@@ -1,4 +1,8 @@
+from __future__ import (
+    absolute_import, division, print_function, unicode_literals
+)
 import datetime
+import sys
 import time
 import unittest
 from stopwatch import stopwatch
@@ -86,10 +90,16 @@ def timer_execute(operations):
     }
 
     def update(lap, delta_relative, delta_absolute):
+        def total_seconds(delta):
+            return sum([
+                delta.days * 24 * 60 * 60,
+                delta.seconds,
+                delta.microseconds / 1000000,
+            ])
         data['called'] = True
         data['lap'] = lap
-        data['time_relative'] = delta_relative.total_seconds()
-        data['time_absolute'] = delta_absolute.total_seconds()
+        data['time_relative'] = total_seconds(delta_relative)
+        data['time_absolute'] = total_seconds(delta_absolute)
 
     timer = stopwatch.Timer(update)
     operations(timer)
@@ -97,4 +107,9 @@ def timer_execute(operations):
 
 
 if __name__ == '__main__':
+    if sys.version_info < (2, 7):
+        def assert_almost_equal(self, first, second, delta):
+            self.assertTrue(self, first + delta >= second)
+            self.assertTrue(self, first - delta <= second)
+        unittest.TestCase.assertAlmostEqual = assert_almost_equal
     unittest.main()
