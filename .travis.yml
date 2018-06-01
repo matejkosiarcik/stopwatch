@@ -18,7 +18,8 @@ python:
   - pypy3
   - pypy3.5
 
-sudo: false
+sudo:
+  - false
 
 matrix:
   fast_finish: true
