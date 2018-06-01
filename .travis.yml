@@ -18,6 +18,13 @@ python:
   - pypy3
   - pypy3.5
 
+dist:
+  - precise
+  - trusty
+  - xenial
+sudo:
+  - true
+  - false
 
 matrix:
   fast_finish: true
@@ -36,12 +43,6 @@ matrix:
       - os: osx
         language: generic
         env: TOXENV=python@3
-      - dist: precise
-      - dist: trusty
-        sudo: true
-      - dist: trusty
-        sudo: false
-      - dist: xenial
 
 before_install:
   - |
