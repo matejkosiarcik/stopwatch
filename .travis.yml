@@ -3,21 +3,6 @@ language: python
 git:
   depth: false
 
-os:
-  - osx
-    language: generic
-  - linux
-
-osx_image:
-  - xcode9.3
-  - xcode9.2
-  - xcode9.1
-  - xcode9
-  - xcode8.3
-  - xcode8
-  - xcode7.3
-  - xcode6.4
-
 python:
   - 2.6
   - 2.7
@@ -37,12 +22,8 @@ python:
   - pypy3.5
 
 sudo:
+  - required
   - false
-
-env:
-  -
-  - TOXENV=python@2
-  - TOXENV=python@3
 
 matrix:
   fast_finish: true
@@ -54,11 +35,13 @@ matrix:
     - python: nightly
     - python: pypy2.7
     - python: pypy3.5
-  exclude:
-    - os: linux
-      env: TOXENV=python@2
-    - os: linux
-      env: TOXENV=python@3
+  include:
+      - os: osx
+        language: generic
+        env: TOXENV=python@2
+      - os: osx
+        language: generic
+        env: TOXENV=python@3
 
 before_install:
   - |
