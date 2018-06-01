@@ -28,6 +28,7 @@ class Timer:
         assert not self._is_running
         self._is_running = True
         self._last_start = datetime.datetime.utcnow()
+        self._last_now = self._last_start
         self._thread = threading.Thread(target=self._loop)
         self._thread.start()
 
