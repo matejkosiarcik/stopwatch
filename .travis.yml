@@ -24,6 +24,7 @@ python:
   - 3.8-dev
   - nightly
   - pypy
+  - pypy2
   - pypy2.0
   - pypy2.1
   - pypy2.2
