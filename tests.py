@@ -67,8 +67,8 @@ class TimerTests(unittest.TestCase):
         data = timer_execute(operations)
 
         self.assertEqual(data['lap'], 2)
-        self.assertAlmostEqual(data['time_relative'], 0, delta=0.005)
-        self.assertAlmostEqual(data['time_absolute'], 0, delta=0.005)
+        self.assertAlmostEqual(data['time_relative'], 0, delta=0.02)
+        self.assertAlmostEqual(data['time_absolute'], 0, delta=0.02)
 
     def test_timer_lapping_complex(self):
         def operations(timer):
