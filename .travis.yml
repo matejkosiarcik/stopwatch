@@ -30,6 +30,7 @@ matrix:
     - python: nightly
     - python: pypy2.7
     - python: pypy3.5
+    - osx_image: xcode6.4 # python3 seems to have issues (pip3 missing)
 
   include:
     # the default is important (should it change to newer version)
