@@ -9,6 +9,14 @@ import threading
 import time
 
 
+def delta_formatted(delta):
+    milliseconds = str(delta.microseconds // 1000).rjust(3, str("0"))
+    seconds = str(delta.seconds % 60).rjust(2, str("0"))
+    minutes = str((delta.seconds // 60) % 60).rjust(2, str("0"))
+    hours = str(delta.seconds // 3600 + delta.days * 24).rjust(2, str("0"))
+    return hours + ":" + minutes + ":" + seconds + "." + milliseconds
+
+
 class Timer:
     @property
     def is_running(self):
@@ -127,14 +135,6 @@ def main(argv=None):
             if should_restart:
                 timer.start()
     sys.stdout.write("\n")
-
-
-def delta_formatted(delta):
-    milliseconds = str(delta.microseconds // 1000).rjust(3, str("0"))
-    seconds = str(delta.seconds % 60).rjust(2, str("0"))
-    minutes = str((delta.seconds // 60) % 60).rjust(2, str("0"))
-    hours = str(delta.seconds // 3600 + delta.days * 24).rjust(2, str("0"))
-    return hours + ":" + minutes + ":" + seconds + "." + milliseconds
 
 
 if __name__ == "__main__":
