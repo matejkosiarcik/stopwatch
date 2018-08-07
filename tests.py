@@ -60,6 +60,19 @@ class TestHelpersTests(unittest.TestCase):
 
 
 class TimerTests(unittest.TestCase):
+    class TimerTester:
+            def __init__(self, *args, **kwargs):
+                self.total_time = 0
+                self.last_lap_time = 0
+                self.lap_count = 0
+                self.was_updated = False
+                def update(lap, delta_relative, delta_absolute):
+                    self.was_updated = True
+                    self.lap_count = lap
+                    self.total_time = total_seconds(delta_absolute)
+                    self.last_lap_time = total_seconds(delta_relative)
+                self.timer = stopwatch.Timer(update)
+
     def __init__(self, *args, **kwargs):
         super(TimerTests, self).__init__(*args, **kwargs)
         if sys.version_info < (2, 7):
@@ -69,79 +82,74 @@ class TimerTests(unittest.TestCase):
             TimerTests.assertAlmostEqual = assert_almost_equal
 
     def test_timer_basic(self):
-        def operations(timer):
-            timer.start()
-            time.sleep(0.3)
-            timer.stop()
+        # given
+        actual_delay = 0
+        tester = self.TimerTester()
 
-        data = timer_execute(operations)
+        # when
+        tester.timer.start()
+        actual_delay = sleep(0.3)
+        tester.timer.stop()
 
-        self.assertEqual(data['lap'], 1)
-        self.assertAlmostEqual(data['time_relative'], 0.3, delta=0.25)
-        self.assertAlmostEqual(data['time_absolute'], 0.3, delta=0.25)
+        # then
+        self.assertTrue(tester.was_updated)
+        self.assertEqual(tester.lap_count, 1)
+        self.assertAlmostEqual(tester.last_lap_time, actual_delay, delta=0.01)
+        self.assertAlmostEqual(tester.total_time, actual_delay, delta=0.01)
 
     def test_timer_pausing(self):
-        def operations(timer):
-            timer.start()
-            time.sleep(0.3)
-            timer.stop()
-            time.sleep(0.5)
-            timer.start()
-            time.sleep(0.3)
-            timer.stop()
+        # given
+        actual_delay = 0
+        tester = self.TimerTester()
 
-        data = timer_execute(operations)
+        # when
+        tester.timer.start()
+        actual_delay += sleep(0.3)
+        tester.timer.stop()
+        time.sleep(0.5)
+        tester.timer.start()
+        actual_delay += sleep(0.3)
+        tester.timer.stop()
 
-        self.assertEqual(data['lap'], 1)
-        self.assertAlmostEqual(data['time_relative'], 0.6, delta=0.25)
-        self.assertAlmostEqual(data['time_absolute'], 0.6, delta=0.25)
+        # then
+        self.assertTrue(tester.was_updated)
+        self.assertEqual(tester.lap_count, 1)
+        self.assertAlmostEqual(tester.last_lap_time, actual_delay, delta=0.01)
+        self.assertAlmostEqual(tester.total_time, actual_delay, delta=0.01)
 
     def test_timer_lapping_simple(self):
-        def operations(timer):
-            timer.start()
-            timer.stop()
-            timer.lap()
+        # given
+        tester = self.TimerTester()
 
-        data = timer_execute(operations)
+        # when
+        tester.timer.start()
+        tester.timer.stop()
+        tester.timer.lap()
 
-        self.assertEqual(data['lap'], 2)
-        self.assertAlmostEqual(data['time_relative'], 0, delta=0.02)
-        self.assertAlmostEqual(data['time_absolute'], 0, delta=0.02)
+        # then
+        self.assertEqual(tester.lap_count, 2)
+        self.assertAlmostEqual(tester.last_lap_time, 0, delta=0.01)
+        self.assertAlmostEqual(tester.total_time, 0, delta=0.01)
 
     def test_timer_lapping_complex(self):
-        def operations(timer):
-            timer.start()
-            time.sleep(0.3)
-            timer.stop()
-            timer.lap()
-            timer.start()
-            time.sleep(0.3)
-            timer.stop()
+        # given
+        actual_delay = []
+        tester = self.TimerTester()
 
-        data = timer_execute(operations)
+        # when
+        tester.timer.start()
+        actual_delay.append(sleep(0.3))
+        tester.timer.stop()
+        tester.timer.lap()
+        tester.timer.start()
+        actual_delay.append(sleep(0.3))
+        tester.timer.stop()
 
-        self.assertEqual(data['lap'], 2)
-        self.assertAlmostEqual(data['time_relative'], 0.3, delta=0.25)
-        self.assertAlmostEqual(data['time_absolute'], 0.6, delta=0.25)
-
-
-def timer_execute(operations):
-    data = {
-        'called': False,
-        'lap': 0,
-        'time_relative': 0.0,
-        'time_absolute': 0.0,
-    }
-
-    def update(lap, delta_relative, delta_absolute):
-        data['called'] = True
-        data['lap'] = lap
-        data['time_relative'] = total_seconds(delta_relative)
-        data['time_absolute'] = total_seconds(delta_absolute)
-
-    timer = stopwatch.Timer(update)
-    operations(timer)
-    return data
+        # then
+        self.assertTrue(tester.was_updated)
+        self.assertEqual(tester.lap_count, 2)
+        self.assertAlmostEqual(tester.last_lap_time, actual_delay[-1], delta=0.01)
+        self.assertAlmostEqual(tester.total_time, sum(actual_delay), delta=0.01)
 
 
 if __name__ == '__main__':
