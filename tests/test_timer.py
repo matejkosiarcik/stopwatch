@@ -6,7 +6,7 @@ from stopwatch import stopwatch
 import helpers
 
 
-class MainTests(helpers.TestCase):
+class MainTests(unittest.TestCase):
     def test_delta_description(self):
         data = [
             (datetime.timedelta(), "00:00:00.000"),

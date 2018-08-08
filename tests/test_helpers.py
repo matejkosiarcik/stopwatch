@@ -4,7 +4,7 @@ import unittest
 import helpers
 
 
-class TestHelpersTests(unittest.TestCase):
+class TestHelpersTests(helpers.TestCase):
     def test_sleep(self):
         self.assertAlmostEqual(helpers.sleep(0.1), 0.1, delta=0.3)
         self.assertAlmostEqual(helpers.sleep(0.2), 0.2, delta=0.3)
