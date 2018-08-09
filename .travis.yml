@@ -93,9 +93,4 @@ install:
   -
 
 script:
-  - |
-    if [ "$(printf '%s\n' "${TRAVIS_PYTHON_VERSION}" | tr -d '.')" -le '35' ]; then
-        py.test 'tests'
-    else
-        pytest 'tests'
-    fi
+  - make test
