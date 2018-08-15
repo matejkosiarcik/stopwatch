@@ -1,0 +1,96 @@
+language: python
+sudo: false
+
+python:
+  - 2.6
+  - 2.7
+  - 3.2
+  - 3.3
+  - 3.4
+  - 3.5
+  - 3.5-dev
+  - 3.6
+  - 3.6-dev
+  - 3.7-dev
+  - 3.8-dev
+  - nightly
+  - pypy
+  - pypy2.7
+  - pypy3
+  - pypy3.5
+
+matrix:
+  fast_finish: true
+
+  allow_failures:
+    - python: 3.5-dev
+    - python: 3.6-dev
+    - python: 3.7-dev
+    - python: 3.8-dev
+    - python: nightly
+    - python: pypy2.7
+    - python: pypy3.5
+
+  include:
+    # the default is important (should it change to newer version)
+    - {os: osx, language: generic, env: TOXENV=python@2}
+    - {os: osx, language: generic, env: TOXENV=python@3}
+
+    # 10.13
+    - {os: osx, language: generic, env: TOXENV=python@2, osx_image: xcode9.4}
+    - {os: osx, language: generic, env: TOXENV=python@3, osx_image: xcode9.4}
+
+    # 10.13
+    - {os: osx, language: generic, env: TOXENV=python@2, osx_image: xcode9.3}
+    - {os: osx, language: generic, env: TOXENV=python@3, osx_image: xcode9.3}
+
+    # 10.12
+    - {os: osx, language: generic, env: TOXENV=python@2, osx_image: xcode9.2}
+    - {os: osx, language: generic, env: TOXENV=python@3, osx_image: xcode9.2}
+
+    # 10.12
+    - {os: osx, language: generic, env: TOXENV=python@2, osx_image: xcode9.1}
+    - {os: osx, language: generic, env: TOXENV=python@3, osx_image: xcode9.1}
+
+    # 10.12
+    - {os: osx, language: generic, env: TOXENV=python@2, osx_image: xcode9}
+    - {os: osx, language: generic, env: TOXENV=python@3, osx_image: xcode9}
+
+    # 10.12
+    - {os: osx, language: generic, env: TOXENV=python@2, osx_image: xcode8.3}
+    - {os: osx, language: generic, env: TOXENV=python@3, osx_image: xcode8.3}
+
+    # 10.11
+    - {os: osx, language: generic, env: TOXENV=python@2, osx_image: xcode8}
+    - {os: osx, language: generic, env: TOXENV=python@3, osx_image: xcode8}
+
+    # 10.11
+    - {os: osx, language: generic, env: TOXENV=python@2, osx_image: xcode7.3}
+    - {os: osx, language: generic, env: TOXENV=python@3, osx_image: xcode7.3}
+
+    # 10.10
+    - {os: osx, language: generic, env: TOXENV=python@2, osx_image: xcode6.4}
+    - {os: osx, language: generic, env: TOXENV=python@3, osx_image: xcode6.4}
+
+before_install:
+  - |
+    if [ "${TRAVIS_OS_NAME}" == 'osx' ]; then
+        brew update >/dev/null
+        case "${TOXENV}" in
+            'python@2')
+                brew install python2
+                pip2 install pytest
+                ;;
+            'python@3')
+                brew list -1 | grep '^python$' || brew install python
+                brew outdated python || brew upgrade python
+                pip3 install pytest
+                ;;
+        esac
+    fi
+
+install:
+  -
+
+script:
+  - make test

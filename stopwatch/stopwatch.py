@@ -1,3 +1,5 @@
+#!/user/bin/env python
+
 from __future__ import (
     absolute_import, division, print_function, unicode_literals
 )
@@ -7,6 +9,14 @@ import sys
 import termios
 import threading
 import time
+
+
+def delta_formatted(delta):
+    milliseconds = str(delta.microseconds // 1000).rjust(3, str("0"))
+    seconds = str(delta.seconds % 60).rjust(2, str("0"))
+    minutes = str((delta.seconds // 60) % 60).rjust(2, str("0"))
+    hours = str(delta.seconds // 3600 + delta.days * 24).rjust(2, str("0"))
+    return hours + ":" + minutes + ":" + seconds + "." + milliseconds
 
 
 class Timer:
@@ -28,6 +38,7 @@ class Timer:
         assert not self._is_running
         self._is_running = True
         self._last_start = datetime.datetime.utcnow()
+        self._last_now = self._last_start
         self._thread = threading.Thread(target=self._loop)
         self._thread.start()
 
@@ -126,14 +137,6 @@ def main(argv=None):
             if should_restart:
                 timer.start()
     sys.stdout.write("\n")
-
-
-def delta_formatted(delta):
-    milliseconds = str(delta.microseconds // 1000).rjust(3, str("0"))
-    seconds = str(delta.seconds % 60).rjust(2, str("0"))
-    minutes = str((delta.seconds // 60) % 60).rjust(2, str("0"))
-    hours = str(delta.seconds // 3600 + delta.days * 24).rjust(2, str("0"))
-    return hours + ":" + minutes + ":" + seconds + "." + milliseconds
 
 
 if __name__ == "__main__":

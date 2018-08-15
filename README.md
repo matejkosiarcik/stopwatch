@@ -7,39 +7,37 @@
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Testing](#testing)
 - [License](#license)
 
 ## Requirements
 
 - Python
-  - version 2.7+ or 3.5+
+  - version `2.6+` or `3.2+`
+
+Stopwatch does *not* have any external (3rd party) dependencies.
 
 ## Installation
 
 ### With package manager
 
-This method is *not available yet*.
+This method is *not* available yet.
 
-### Manually
+### Locally
 
-Download project as zip and unzip it,
-&lt;OR&gt;,
-clone the project with
-`$ git clone https://github.com/matejkosiarcik/Stopwatch.git`.
-Then run:
-
-```sh
-cd Stopwatch
-pip install .
-# If you do not have pip installed, try: $ python setup.py install
+```console
+$ git clone https://github.com/matejkosiarcik/Stopwatch.git # or download as zip
+$ cd Stopwatch
+$ pip install .
 ```
 
-#### Alternative
+*Alternatively* just put file `/stopwatch/stopwatch.py` somewhere under your
+`$PATH`.
 
-If you dislike aforementioned forms of installation, you can just download
-single script file `stopwatch` from releases and put it somewhere under your
-`PATH`.
+### Uninstallation
+
+```console
+$ pip uninstall stopwatch-cli
+```
 
 ## Usage
 
@@ -56,14 +54,7 @@ Key | description
 If you are experiencing troubles, see help page with `$ stopwatch -h` or
 `$ stopwatch --help`.
 
-## Testing
-
-To test project, run `$ python tests.py`.
-
-Not all parts of the program are testable, so always make sure the program runs
-correctly.
-
 ## License
 
-This project is licensed under the MIT License,
-see [LICENSE.txt](LICENSE.txt) file for full license details.
+This project is licensed under the MIT License, see [LICENSE.txt](LICENSE.txt)
+file for full license details.
