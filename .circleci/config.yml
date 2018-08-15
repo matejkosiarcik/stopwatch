@@ -5,4 +5,9 @@ jobs:
       - image: circleci/python:3.6.1
     steps:
       - checkout
-      - run: make bootstrap && make test
+      - run:
+          command: |
+            python -m venv venv
+            . venv/bin/activate
+            make bootstrap
+            make test
