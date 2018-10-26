@@ -11,6 +11,7 @@ python:
   - 3.5-dev
   - 3.6
   - 3.6-dev
+  - 3.7
   - 3.7-dev
   - 3.8-dev
   - nightly
@@ -35,39 +36,33 @@ matrix:
     # the default is important (should it change to newer version)
     - {os: osx, language: generic, env: TOXENV=python@2}
     - {os: osx, language: generic, env: TOXENV=python@3}
-
+    # 10.13
+    - {os: osx, language: generic, env: TOXENV=python@2, osx_image: xcode10}
+    - {os: osx, language: generic, env: TOXENV=python@3, osx_image: xcode10}
     # 10.13
     - {os: osx, language: generic, env: TOXENV=python@2, osx_image: xcode9.4}
     - {os: osx, language: generic, env: TOXENV=python@3, osx_image: xcode9.4}
-
     # 10.13
     - {os: osx, language: generic, env: TOXENV=python@2, osx_image: xcode9.3}
     - {os: osx, language: generic, env: TOXENV=python@3, osx_image: xcode9.3}
-
     # 10.12
     - {os: osx, language: generic, env: TOXENV=python@2, osx_image: xcode9.2}
     - {os: osx, language: generic, env: TOXENV=python@3, osx_image: xcode9.2}
-
     # 10.12
     - {os: osx, language: generic, env: TOXENV=python@2, osx_image: xcode9.1}
     - {os: osx, language: generic, env: TOXENV=python@3, osx_image: xcode9.1}
-
     # 10.12
     - {os: osx, language: generic, env: TOXENV=python@2, osx_image: xcode9}
     - {os: osx, language: generic, env: TOXENV=python@3, osx_image: xcode9}
-
     # 10.12
     - {os: osx, language: generic, env: TOXENV=python@2, osx_image: xcode8.3}
     - {os: osx, language: generic, env: TOXENV=python@3, osx_image: xcode8.3}
-
     # 10.11
     - {os: osx, language: generic, env: TOXENV=python@2, osx_image: xcode8}
     - {os: osx, language: generic, env: TOXENV=python@3, osx_image: xcode8}
-
     # 10.11
     - {os: osx, language: generic, env: TOXENV=python@2, osx_image: xcode7.3}
     - {os: osx, language: generic, env: TOXENV=python@3, osx_image: xcode7.3}
-
     # 10.10
     - {os: osx, language: generic, env: TOXENV=python@2, osx_image: xcode6.4}
     - {os: osx, language: generic, env: TOXENV=python@3, osx_image: xcode6.4}
@@ -76,22 +71,16 @@ before_install:
   - |
     if [ "${TRAVIS_OS_NAME}" == 'osx' ]; then
         brew update >/dev/null
+        brew remove python
         case "${TOXENV}" in
-            'python@2')
-                brew install python2
-                brew upgrade python2
-                pip2 install pytest
-                ;;
-            'python@3')
-                brew install python3
-                brew upgrade python3
-                pip3 install pytest
-                ;;
+            'python@2') brew install python2 ;;
+            'python@3') brew install python3 ;;
         esac
+        pip install --upgrade pip
     fi
 
 install:
-  -
+  - make bootstrap
 
 script:
   - make test
