@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  test-python-3.6: &test-template
     docker:
       - image: circleci/python:3.6
     steps:
@@ -12,3 +12,7 @@ jobs:
             . venv/bin/activate
             make bootstrap
             make test
+  test-python-3.5:
+    <<: *test-template
+    docker:
+      - image: circleci/python:3.5
