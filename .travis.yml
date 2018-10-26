@@ -70,12 +70,16 @@ before_install:
   - |
     if [ "${TRAVIS_OS_NAME}" == 'osx' ]; then
         brew update >/dev/null
-        brew remove --ignore-dependencies python
         case "${TOXENV}" in
-            'python@2') brew reinstall python2;;
-            'python@3') brew reinstall python3;;
+            'python@2')
+              brew install python2
+              pip2 install --upgrade pip
+            ;;
+            'python@3')
+              brew upgrade python
+              pip3 install --upgrade pip
+            ;;
         esac
-        pip install --upgrade pip
     fi
 
 install:
