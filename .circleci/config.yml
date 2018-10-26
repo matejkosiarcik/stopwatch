@@ -6,8 +6,13 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Setup environment
           command: |
             python -m venv venv
             . venv/bin/activate
-            make bootstrap
-            make test
+      - run:
+          name: Install dependencies
+          command: make bootstrap
+      - run:
+          name: Test project
+          command: make test
