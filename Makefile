@@ -12,12 +12,12 @@ update: FORCE
 
 test: FORCE
 	if command -v py.test >'/dev/null' 2>&1; then \
-		py.test tests; \
+		py.test 'tests'; \
 	elif command -v pytest >'/dev/null' 2>&1; then \
-		pytest tests; \
+		pytest 'tests'; \
 	else \
 		exit 1; \
 	fi
 
 install: FORCE
-	pip install .
+	pip install '.'
