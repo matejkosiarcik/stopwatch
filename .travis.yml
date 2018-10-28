@@ -78,7 +78,7 @@ before_install:
         'py3')
           brew list -1 | grep 'python' | xargs -n1 -I% brew uninstall % --ignore-dependencies
           brew install python3
-          pip3 install --upgrade pip
+          python3 -m pip install --upgrade pip
         ;;
       esac
     fi
