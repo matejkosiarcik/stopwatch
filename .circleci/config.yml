@@ -13,7 +13,7 @@ workflows:
       - python:2.7
       - python:2
 jobs:
-  python: &test-template
+  python: &python3-template
     docker:
       - image: circleci/${CIRCLE_JOB}
     steps:
@@ -21,25 +21,36 @@ jobs:
       - run:
           name: Run tests
           command: |
+            python --version
             python -m venv venv
             . venv/bin/activate
-            python --version
             pip --version
             make bootstrap
             make test
   python:latest:
-    <<: *test-template
+    <<: *python3-template
   python:3.7:
-    <<: *test-template
+    <<: *python3-template
   python:3.6:
-    <<: *test-template
+    <<: *python3-template
   python:3.5:
-    <<: *test-template
+    <<: *python3-template
   python:3.4:
-    <<: *test-template
+    <<: *python3-template
   python:3:
-    <<: *test-template
+    <<: *python3-template
+
+  python:2: &python2-template
+    docker:
+      - image: circleci/${CIRCLE_JOB}
+    steps:
+      - checkout
+      - run:
+          name: Run tests
+          command: |
+            python --version
+            pip --version
+            make bootstrap
+            make test
   python:2.7:
-    <<: *test-template
-  python:2:
-    <<: *test-template
+    <<: *python2-template
