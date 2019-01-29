@@ -3,10 +3,10 @@ workflows:
   version: 2
   test:
     jobs:
-      - test-python-3.7
-      - test-python-3.6
-      - test-python-3.5
-      - test-python-3.4
+      - python:3.7
+      - python:3.6
+      - python:3.5
+      - python:3.4
 jobs:
   python:3.7: &test-template
     docker:
@@ -22,9 +22,9 @@ jobs:
             pip --version
             make bootstrap
             make test
-  python-3.6:
+  python:3.6:
     <<: *test-template
-  python-3.5:
+  python:3.5:
     <<: *test-template
-  python-3.4:
+  python:3.4:
     <<: *test-template
