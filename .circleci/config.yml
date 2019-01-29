@@ -21,10 +21,8 @@ jobs:
       - run:
           name: Run tests
           command: |
-            python --version
             python -m venv venv
-            . venv/bin/activate
-            pip --version
+            . 'venv/bin/activate'
             make bootstrap
             make test
   python:latest:
@@ -48,8 +46,9 @@ jobs:
       - run:
           name: Run tests
           command: |
-            python --version
-            pip --version
+            mkdir 'venv'
+            virtualenv 'venv'
+            . 'venv/bin/activate'
             make bootstrap
             make test
   python:2.7:
