@@ -40,42 +40,49 @@ matrix:
       dist: xenial
       sudo: true
 
-    # the default is important (should it change to newer version)
-    - {os: osx, language: generic, env: TOXENV=py2}
-    - {os: osx, language: generic, env: TOXENV=py3}
+    - &mac-py2
+      os: osx
+      language: generic
+      env: TOXENV=py2
+
+    - &mac-py3
+      os: osx
+      language: generic
+      env: TOXENV=py3
+
     # 10.13
-    - {os: osx, language: generic, env: TOXENV=py2, osx_image: xcode10.1}
-    - {os: osx, language: generic, env: TOXENV=py3, osx_image: xcode10.1}
+    - {<<: *mac-py2, osx_image: xcode10.1}
+    - {<<: *mac-py3, osx_image: xcode10.1}
     # 10.13
-    - {os: osx, language: generic, env: TOXENV=py2, osx_image: xcode10}
-    - {os: osx, language: generic, env: TOXENV=py3, osx_image: xcode10}
+    - {<<: *mac-py2, osx_image: xcode10}
+    - {<<: *mac-py3, osx_image: xcode10}
     # 10.13
-    - {os: osx, language: generic, env: TOXENV=py2, osx_image: xcode9.4}
-    - {os: osx, language: generic, env: TOXENV=py3, osx_image: xcode9.4}
+    - {<<: *mac-py2, osx_image: xcode9.4}
+    - {<<: *mac-py3, osx_image: xcode9.4}
     # 10.13
-    - {os: osx, language: generic, env: TOXENV=py2, osx_image: xcode9.3}
-    - {os: osx, language: generic, env: TOXENV=py3, osx_image: xcode9.3}
+    - {<<: *mac-py2, osx_image: xcode9.3}
+    - {<<: *mac-py3, osx_image: xcode9.3}
     # 10.12
-    - {os: osx, language: generic, env: TOXENV=py2, osx_image: xcode9.2}
-    - {os: osx, language: generic, env: TOXENV=py3, osx_image: xcode9.2}
+    - {<<: *mac-py2, osx_image: xcode9.2}
+    - {<<: *mac-py3, osx_image: xcode9.2}
     # 10.12
-    - {os: osx, language: generic, env: TOXENV=py2, osx_image: xcode9.1}
-    - {os: osx, language: generic, env: TOXENV=py3, osx_image: xcode9.1}
+    - {<<: *mac-py2, osx_image: xcode9.1}
+    - {<<: *mac-py3, osx_image: xcode9.1}
     # 10.12
-    - {os: osx, language: generic, env: TOXENV=py2, osx_image: xcode9}
-    - {os: osx, language: generic, env: TOXENV=py3, osx_image: xcode9}
+    - {<<: *mac-py2, osx_image: xcode9}
+    - {<<: *mac-py3, osx_image: xcode9}
     # 10.12
-    - {os: osx, language: generic, env: TOXENV=py2, osx_image: xcode8.3}
-    - {os: osx, language: generic, env: TOXENV=py3, osx_image: xcode8.3}
+    - {<<: *mac-py2, osx_image: xcode8.3}
+    - {<<: *mac-py3, osx_image: xcode8.3}
     # 10.11
-    - {os: osx, language: generic, env: TOXENV=py2, osx_image: xcode8}
-    - {os: osx, language: generic, env: TOXENV=py3, osx_image: xcode8}
+    - {<<: *mac-py2, osx_image: xcode8}
+    - {<<: *mac-py3, osx_image: xcode8}
     # 10.11
-    - {os: osx, language: generic, env: TOXENV=py2, osx_image: xcode7.3}
-    - {os: osx, language: generic, env: TOXENV=py3, osx_image: xcode7.3}
+    - {<<: *mac-py2, osx_image: xcode7.3}
+    - {<<: *mac-py3, osx_image: xcode7.3}
     # 10.10
-    - {os: osx, language: generic, env: TOXENV=py2, osx_image: xcode6.4}
-    - {os: osx, language: generic, env: TOXENV=py3, osx_image: xcode6.4}
+    - {<<: *mac-py2, osx_image: xcode6.4}
+    - {<<: *mac-py3, osx_image: xcode6.4}
 
 before_install:
   - |
