@@ -94,8 +94,8 @@ before_install:
   - |
     if [ "${TRAVIS_OS_NAME}" == 'osx' ]; then
       case "${TOXENV}" in
-        'py2') brew uninstall python3;;
-        'py3') brew uninstall python2;;
+        'py2') brew uninstall --ignore-dependencies python3;;
+        'py3') brew uninstall --ignore-dependencies python2;;
       esac
     fi
   - |
