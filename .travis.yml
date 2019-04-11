@@ -53,6 +53,9 @@ matrix:
       language: generic
       env: TOXENV=py3
 
+    # 10.14
+    - {<<: *mac-py2, osx_image: xcode10.2}
+    - {<<: *mac-py3, osx_image: xcode10.2}
     # 10.13
     - {<<: *mac-py2, osx_image: xcode10.1}
     - {<<: *mac-py3, osx_image: xcode10.1}
