@@ -22,6 +22,9 @@ python:
 addons:
   homebrew:
     update: true
+    packages:
+      - python2
+      - python3
 
 matrix:
   fast_finish: true
@@ -88,15 +91,8 @@ before_install:
   - |
     if [ "${TRAVIS_OS_NAME}" == 'osx' ]; then
       case "${TOXENV}" in
-        'py2')
-          brew list -1 | grep '^python$' && brew remove python
-          brew install python2
-          brew link --overwrite python2
-        ;;
-        'py3')
-          brew list -1 | grep '^python$' || brew install python
-          brew outdated python || brew upgrade python
-        ;;
+        'py2') brew uninstall python3;;
+        'py3') brew uninstall python2;;
       esac
     fi
   - |
