@@ -92,6 +92,21 @@ matrix:
     - {<<: *mac-py3, osx_image: xcode6.4}
 
 before_install:
+  - uname -a
+  - |
+    if [ "${TRAVIS_OS_NAME}" == 'osx' ]; then
+      case "${TOXENV}" in
+        'py2') brew uninstall --ignore-dependencies --force python3;;
+        'py3') brew uninstall --ignore-dependencies --force python2;;
+      esac
+    fi
+  - |
+    if [ "${TRAVIS_OS_NAME}" == 'osx' ]; then
+      case "${TOXENV}" in
+        'py2') brew link --overwrite python2;;
+        'py3') brew link --overwrite python3;;
+      esac
+    fi
   - |
     if [ "${TRAVIS_OS_NAME}" == 'osx' ] && [ "${TOXENV}" == 'py3' ]; then
       python3 -m venv env
