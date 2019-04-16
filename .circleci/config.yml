@@ -1,7 +1,7 @@
 version: 2
 
 commands:
-  mainCommands:
+  main:
     description: "Main commands"
     steps:
       - run: make bootstrap
@@ -32,7 +32,7 @@ jobs:
           command: |
             python -m venv venv
             . venv/bin/activate
-      - mainCommands: {}
+      - main: {}
   python:latest:
     <<: *python3-template
   python:3.7:
@@ -57,6 +57,6 @@ jobs:
             mkdir venv
             virtualenv venv
             . venv/bin/activate
-      - mainCommands: {}
+      - main: {}
   python:2.7:
     <<: *python2-template
