@@ -3,7 +3,6 @@ version: 2
 commands:
   main:
     description: "Main commands"
-    parameters:
     steps:
       - run: make bootstrap
       - run: make test
