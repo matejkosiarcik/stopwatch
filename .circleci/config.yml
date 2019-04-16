@@ -1,11 +1,11 @@
 version: 2
 
 commands:
-  main:
-    description: "Main commands"
-    steps:
-      - run: make bootstrap
-      - run: make test
+  - main:
+      description: "Main commands"
+      steps:
+        - run: make bootstrap
+        - run: make test
 
 workflows:
   version: 2
