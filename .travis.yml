@@ -101,13 +101,6 @@ before_install:
       esac
     fi
   - |
-    if [ "${TRAVIS_OS_NAME}" == 'osx' ]; then
-      case "${TOXENV}" in
-        'py2') brew link --overwrite python2;;
-        'py3') brew link --overwrite python3;;
-      esac
-    fi
-  - |
     if [ "${TRAVIS_OS_NAME}" == 'osx' ] && [ "${TOXENV}" == 'py3' ]; then
       python3 -m venv env
       . ./env/bin/activate
@@ -115,6 +108,10 @@ before_install:
 
 install:
   - make bootstrap
+
+before_script:
+  - python --version
+  - pip --version
 
 script:
   - make test
