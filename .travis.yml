@@ -42,14 +42,15 @@ matrix:
       env: TOXENV=py2
       addons:
         homebrew:
+          update: true
           packages: python2
-
     - &mac-py3
       os: osx
       language: generic
       env: TOXENV=py3
       addons:
         homebrew:
+          update: true
           packages: python3
 
     # 10.14
@@ -92,13 +93,6 @@ matrix:
 before_install:
   - uname -a
   - which python
-  - |
-    if [ "${TRAVIS_OS_NAME}" == 'osx' ]; then
-      case "${TOXENV}" in
-        'py2') which python2;;
-        'py3') which python3;;
-      esac
-    fi
   - |
     if [ "${TRAVIS_OS_NAME}" == 'osx' ]; then
       case "${TOXENV}" in
