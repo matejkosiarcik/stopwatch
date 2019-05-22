@@ -95,7 +95,7 @@ matrix:
       addons:
         homebrew:
           update: true
-      before_install:
+      before_install: |
         brew install python2
         brew link --overwrite python2
     - os: osx
@@ -105,7 +105,7 @@ matrix:
       addons:
         homebrew:
           update: true
-      before_install:
+      before_install: |
         brew list -1 | grep '^python$' || brew install python
         brew outdated python || brew upgrade python
         python3 -m venv env
