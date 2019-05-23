@@ -114,6 +114,10 @@ matrix:
 before_install:
   - uname -a
   - which python
+  - - |
+    if [ "${TRAVIS_OS_NAME}" == 'osx' ]; then
+      brew list
+    fi
   - |
     if [ "${TRAVIS_OS_NAME}" == 'osx' ]; then
       case "${TOXENV}" in
@@ -133,6 +137,7 @@ before_install:
       python3 -m venv env
       . ./env/bin/activate
     fi
+  - which python
 
 install:
   - make bootstrap
