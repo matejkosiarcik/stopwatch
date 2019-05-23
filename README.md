@@ -4,10 +4,17 @@
 
 ![Program screen](docs/example.png)
 
+<!-- toc -->
+
 - [Requirements](#requirements)
 - [Installation](#installation)
+  * [With package manager](#with-package-manager)
+  * [Locally](#locally)
+  * [Uninstallation](#uninstallation)
 - [Usage](#usage)
 - [License](#license)
+
+<!-- tocstop -->
 
 ## Requirements
 
