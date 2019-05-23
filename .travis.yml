@@ -43,7 +43,6 @@ matrix:
       addons:
         homebrew:
           update: true
-          packages: python2
     - &mac-py3
       os: osx
       language: generic
@@ -51,7 +50,6 @@ matrix:
       addons:
         homebrew:
           update: true
-          packages: python3
 
     # 10.14
     - { <<: *mac-py2, osx_image: xcode10.2 }
@@ -86,38 +84,12 @@ matrix:
     # 10.11
     - { <<: *mac-py2, osx_image: xcode7.3 }
     - { <<: *mac-py3, osx_image: xcode7.3 }
-
     # 10.10
-    - os: osx
-      osx_image: xcode6.4
-      language: generic
-      env: TOXENV=py2
-      addons:
-        homebrew:
-          update: true
-      before_install: |
-        brew install python2
-        brew link --overwrite python2
-    - os: osx
-      osx_image: xcode6.4
-      language: generic
-      env: TOXENV=py3
-      addons:
-        homebrew:
-          update: true
-      before_install: |
-        brew list -1 | grep '^python$' || brew install python
-        brew outdated python || brew upgrade python
-        python3 -m venv env
-        . ./env/bin/activate
+    - { <<: *mac-py2, osx_image: xcode6.4 }
+    - { <<: *mac-py3, osx_image: xcode6.4 }
 
 before_install:
   - uname -a
-  - which python
-  - |
-    if [ "${TRAVIS_OS_NAME}" == 'osx' ]; then
-      brew list
-    fi
   - |
     if [ "${TRAVIS_OS_NAME}" == 'osx' ]; then
       case "${TOXENV}" in
@@ -128,16 +100,30 @@ before_install:
   - |
     if [ "${TRAVIS_OS_NAME}" == 'osx' ]; then
       case "${TOXENV}" in
+        'py2') brew install python2;;
+        'py3') brew install python3;;
+      esac
+    fi
+  - |
+    if [ "${TRAVIS_OS_NAME}" == 'osx' ]; then
+      case "${TOXENV}" in
         'py2') brew link --overwrite python2;;
         'py3') brew link --overwrite python3;;
       esac
     fi
   - |
-    if [ "${TRAVIS_OS_NAME}" == 'osx' ] && [ "${TOXENV}" == 'py3' ]; then
-      python3 -m venv env
-      . ./env/bin/activate
+    if [ "${TRAVIS_OS_NAME}" == 'osx' ]; then
+      case "${TOXENV}" in
+        'py2')
+            pip2 install virtualenv
+            mkdir venv
+            virtualenv venv
+        'py3')
+            python3 -m venv env
+        ;;
+      esac
+      . venv/bin/activate
     fi
-  - which python
 
 install:
   - make bootstrap
