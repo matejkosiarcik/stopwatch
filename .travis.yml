@@ -1,6 +1,11 @@
 language: python
 sudo: false
 
+addons:
+  homebrew:
+    update: true
+    bundle: true
+
 python:
   - 2.6
   - 2.7
@@ -40,9 +45,6 @@ matrix:
       os: osx
       language: generic
       env: TOXENV=py2
-      addons:
-        homebrew:
-          update: true
     - &mac-py3
       os: osx
       language: generic
