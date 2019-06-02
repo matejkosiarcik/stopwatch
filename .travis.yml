@@ -91,7 +91,6 @@ matrix:
     - { <<: *mac-py3, osx_image: xcode6.4 }
 
 before_install:
-  - uname -a
   - |
     if [ "${TRAVIS_OS_NAME}" == 'osx' ]; then
       case "${TOXENV}" in
@@ -109,15 +108,15 @@ before_install:
   - |
     if [ "${TRAVIS_OS_NAME}" == 'osx' ]; then
       case "${TOXENV}" in
-        'py2') brew outdated python2 || brew upgrade python2;;
-        'py3') brew outdated python3 || brew upgrade python3;;
+        'py2') brew link --overwrite python2;;
+        'py3') brew link --overwrite python3;;
       esac
     fi
   - |
     if [ "${TRAVIS_OS_NAME}" == 'osx' ]; then
       case "${TOXENV}" in
-        'py2') brew link --overwrite python2;;
-        'py3') brew link --overwrite python3;;
+        'py2') brew outdated python2 || brew upgrade python2;;
+        'py3') brew outdated python3 || brew upgrade python3;;
       esac
     fi
   - |
@@ -139,6 +138,7 @@ install:
   - make bootstrap
 
 before_script:
+  - uname -a
   - python --version
   - pip --version
 
