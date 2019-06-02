@@ -1,6 +1,9 @@
 language: python
 sudo: false
 
+services:
+  - docker
+
 addons:
   homebrew:
     update: true
