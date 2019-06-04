@@ -142,6 +142,7 @@ before_script:
   - uname -a
   - python --version
   - pip --version
+  - python -m pytest --version
 
 script:
   - make test
