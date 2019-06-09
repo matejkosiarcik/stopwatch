@@ -23,7 +23,9 @@ environment:
     - PYTHON: "C:\\Python37-x64"
 
 install:
-  # - "%PYTHON%\\python.exe -m pip install --upgrade pip setuptools"
+  - "%PYTHON%\\python.exe --version"
+  - "%PYTHON%\\python.exe -m pip --version"
+  - "%PYTHON%\\python.exe -m pip install --upgrade pip setuptools"
   - "%PYTHON%\\python.exe -m pip install -r requirements-dev.txt"
 
 build: off
