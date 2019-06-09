@@ -53,6 +53,13 @@ matrix:
       language: generic
       env: TOXENV=py3
 
+    - &mac-py_system
+      os: osx
+      osx_image: xcode10.2
+      language: generic
+      before_install:
+        - brew uninstall --ignore-dependencies --force python3 python2;;
+
     # 10.14
     - { <<: *mac-py2, osx_image: xcode10.2 }
     - { <<: *mac-py3, osx_image: xcode10.2 }
