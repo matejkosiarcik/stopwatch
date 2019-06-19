@@ -55,8 +55,7 @@ matrix:
       language: generic
       env: TOXENV=py3
 
-    - &mac-py_system
-      os: osx
+    - os: osx
       osx_image: xcode10.2
       language: generic
       before_install:
