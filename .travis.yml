@@ -135,6 +135,7 @@ before_install:
             pip2 install virtualenv
             mkdir venv
             virtualenv venv
+            virtualenv venv
         ;;
         'py3')
             python3 -m venv venv
