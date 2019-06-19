@@ -14,7 +14,7 @@ import platform
 class TerminalReader:
     @staticmethod
     def is_windows():
-        return platform.system.lower() == "windows"
+        return platform.system().lower() == "windows"
 
     def __init(self):
         if is_windows():
