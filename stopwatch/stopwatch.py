@@ -10,13 +10,16 @@ import threading
 import time
 import platform
 
+
 def is_windows():
     platform.system().lower() == "windows"
+
 
 if is_windows():
     import msvcrt
 else:
     import termios
+
 
 class TerminalReader:
     def __init(self):
