@@ -10,24 +10,24 @@ import threading
 import time
 import platform
 
+def is_windows():
+    platform.system().lower() == "windows"
+
+if is_windows():
+    import msvcrt
+else:
+    import termios
 
 class TerminalReader:
-    @staticmethod
-    def is_windows():
-        return platform.system().lower() == "windows"
-
     def __init(self):
-        if is_windows():
-            import msvcrt
-        else:
-            import termios
+        if not is_windows():
             attributes = termios.tcgetattr(sys.stdin.fileno())
             attributes[3] = attributes[3] & ~termios.ECHO
             attributes[3] = attributes[3] & ~termios.ICANON
             termios.tcsetattr(sys.stdin.fileno(), termios.TCSANOW, attributes)
 
     def read(self):
-        if self.is_windows():
+        if is_windows():
             return msvcrt.getch().lower()
         else:
             return sys.stdin.read(1).lower()
