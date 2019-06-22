@@ -7,8 +7,6 @@ services:
 addons:
   apt:
     update: true
-    packages:
-      - bats
   homebrew:
     update: true
     brewfile: true
@@ -157,4 +155,7 @@ before_script:
 
 script:
   - make unit_test
-  - make docker_test
+  - |
+    if [ "${TRAVIS_OS_NAME}" == 'osx' ]; then
+      make docker_test
+    fi
