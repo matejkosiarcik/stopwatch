@@ -154,8 +154,4 @@ before_script:
   - python -m pytest --version
 
 script:
-  - make unit_test
-  - |
-    if [ "${TRAVIS_OS_NAME}" == 'osx' ]; then
-      make docker_test
-    fi
+  - make test
