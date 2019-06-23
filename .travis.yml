@@ -1,15 +1,8 @@
 language: python
 sudo: false
 
-services:
-  - docker
-
-addons:
-  apt:
-    update: true
-  homebrew:
-    update: true
-    brewfile: true
+os:
+  - linux
 
 python:
   - 2.6
@@ -28,6 +21,16 @@ python:
   - pypy2.7
   - pypy3
   - pypy3.5
+
+services:
+  - docker
+
+addons:
+  apt:
+    update: true
+  homebrew:
+    update: true
+    brewfile: true
 
 matrix:
   fast_finish: true
