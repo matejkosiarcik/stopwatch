@@ -3,6 +3,7 @@ sudo: false
 
 os:
   - linux
+  - osx
 
 python:
   - 2.6
@@ -12,18 +13,56 @@ python:
   - 3.4
   - 3.5
   - 3.5-dev
+    only: branch=master
   - 3.6
   - 3.6-dev
+    only: branch=master
   - 3.7-dev
+    only: branch=master
   - 3.8-dev
+    only: branch=master
   - nightly
+    only: branch=master
   - pypy
   - pypy2.7
+    only: branch=master
   - pypy3
   - pypy3.5
+    only: branch=master
 
-services:
-  - docker
+osx_image:
+  -
+  - xcode11
+    only: branch=master
+  - xcode10.2
+    only: branch=master
+  - xcode10.1
+    only: branch=master
+  - xcode10
+    only: branch=master
+  - xcode9.4
+    only: branch=master
+  - xcode9.3
+    only: branch=master os=osx
+  - xcode9.2
+    only: branch=master
+  - xcode9.1
+    only: branch=master
+  - xcode9
+    only: branch=master
+  - xcode8.3
+    only: branch=master
+  - xcode8
+    only: branch=master
+  - xcode7.3
+    only: branch=master
+  - xcode6.4
+    only: branch=master
+
+env:
+  -
+  - TOXENV=py2
+  - TOXENV=py3
 
 addons:
   apt:
@@ -31,6 +70,9 @@ addons:
   homebrew:
     update: true
     brewfile: true
+
+services:
+  - docker
 
 matrix:
   fast_finish: true
@@ -44,56 +86,52 @@ matrix:
     - python: pypy2.7
     - python: pypy3.5
 
+  exclude:
+    - { os: linux, env: TOXENV=py2 }
+    - { os: linux, env: TOXENV=py3 }
+    - { os: osx, env: "" } # TODO: remove
+    - { os: linux, osx_image: "" }
+    - { os: linux, osx_image: xcode11 }
+    - { os: linux, osx_image: xcode10.2 }
+    - { os: linux, osx_image: xcode10.1 }
+    - { os: linux, osx_image: xcode10 }
+    - { os: linux, osx_image: xcode9.4 }
+    - { os: linux, osx_image: xcode9.3 }
+    - { os: linux, osx_image: xcode9.2 }
+    - { os: linux, osx_image: xcode9.1 }
+    - { os: linux, osx_image: xcode9 }
+    - { os: linux, osx_image: xcode8.3 }
+    - { os: linux, osx_image: xcode8 }
+    - { os: linux, osx_image: xcode7.3 }
+    - { os: linux, osx_image: xcode6.4 }
+    - { os: osx, python: 2.6 }
+    - { os: osx, python: 2.7 }
+    - { os: osx, python: 3.2 }
+    - { os: osx, python: 3.3 }
+    - { os: osx, python: 3.4 }
+    - { os: osx, python: 3.5 }
+    - { os: osx, python: 3.5-dev }
+    - { os: osx, python: 3.6 }
+    - { os: osx, python: 3.6-dev }
+    - { os: osx, python: 3.7-dev }
+    - { os: osx, python: 3.8-dev }
+    - { os: osx, python: nightly }
+    - { os: osx, python: pypy }
+    - { os: osx, python: pypy2.7 }
+    - { os: osx, python: pypy3 }
+    - { os: osx, python: pypy3.5 }
+
   include:
     - python: 3.7
       dist: xenial
       sudo: true
 
-    - &mac-py2
-      os: osx
-      language: generic
-      env: TOXENV=py2
-    - &mac-py3
-      os: osx
-      language: generic
-      env: TOXENV=py3
+    - python: 3.7
+      dist: xenial
+      sudo: required
 
-    # 10.14
-    - { <<: *mac-py2, osx_image: xcode10.2 }
-    - { <<: *mac-py3, osx_image: xcode10.2 }
-    # 10.13
-    - { <<: *mac-py2, osx_image: xcode10.1 }
-    - { <<: *mac-py3, osx_image: xcode10.1 }
-    # 10.13
-    - { <<: *mac-py2, osx_image: xcode10 }
-    - { <<: *mac-py3, osx_image: xcode10 }
-    # 10.13
-    - { <<: *mac-py2, osx_image: xcode9.4 }
-    - { <<: *mac-py3, osx_image: xcode9.4 }
-    # 10.13
-    - { <<: *mac-py2, osx_image: xcode9.3 }
-    - { <<: *mac-py3, osx_image: xcode9.3 }
-    # 10.12
-    - { <<: *mac-py2, osx_image: xcode9.2 }
-    - { <<: *mac-py3, osx_image: xcode9.2 }
-    # 10.12
-    - { <<: *mac-py2, osx_image: xcode9.1 }
-    - { <<: *mac-py3, osx_image: xcode9.1 }
-    # 10.12
-    - { <<: *mac-py2, osx_image: xcode9 }
-    - { <<: *mac-py3, osx_image: xcode9 }
-    # 10.12
-    - { <<: *mac-py2, osx_image: xcode8.3 }
-    - { <<: *mac-py3, osx_image: xcode8.3 }
-    # 10.11
-    - { <<: *mac-py2, osx_image: xcode8 }
-    - { <<: *mac-py3, osx_image: xcode8 }
-    # 10.11
-    - { <<: *mac-py2, osx_image: xcode7.3 }
-    - { <<: *mac-py3, osx_image: xcode7.3 }
-    # 10.10
-    - { <<: *mac-py2, osx_image: xcode6.4 }
-    - { <<: *mac-py3, osx_image: xcode6.4 }
+    - os: osx
+      osx_image: ""
 
 before_install:
   - |
@@ -135,7 +173,7 @@ before_install:
     if [ "${TRAVIS_OS_NAME}" == 'osx' ]; then
       case "${TOXENV}" in
         # 'py2')
-        #     pip2 install --upgrade virtualenv virtualenvwrapper
+        #     pip2 install --force-reinstall virtualenv virtualenvwrapper
         #     mkdir venv
         #     virtualenv venv
         # ;;
