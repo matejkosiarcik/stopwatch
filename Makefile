@@ -19,6 +19,7 @@ integration_test: FORCE
 docker_test: FORCE
 	docker build '.' --tag 'stopwatch:dev'
 	bats 'shell_tests/docker_tests.sh'
+	docker image rm --force 'stopwatch:dev'
 
 install_test: FORCE
 	printf "Don\'t run this on system wide python/pip\n" >&2
