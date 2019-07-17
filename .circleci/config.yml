@@ -1,57 +1,89 @@
-version: 2
+version: 2.1
 
-workflows:
-  version: 2
+commands:
+  env_info:
+    steps:
+      - run:
+          name: Print env info
+          command: |
+            uname -a
+            python --version
+            pip --version
+            python -m pytest --version
+  bootstrap:
+    steps:
+      - run:
+          name: Prepare dependencies
+          command: make bootstrap
   test:
-    jobs:
-      - python
-      - python:latest
-      - python:3.7
-      - python:3.6
-      - python:3.5
-      - python:3.4
-      - python:3
-      - python:2.7
-      - python:2
-
-jobs:
-  python: &python3-template
-    docker:
-      - image: circleci/${CIRCLE_JOB}
+    steps:
+      - run:
+          name: Test
+          command: make test
+  python3:
     steps:
       - checkout
+      - env_info
       - run:
-          name: Make env
+          name: Prepare virtualenv
           command: |
             python -m venv venv
             . venv/bin/activate
-            make bootstrap
-            make test
-  python:latest:
-    <<: *python3-template
-  python:3.7:
-    <<: *python3-template
-  python:3.6:
-    <<: *python3-template
-  python:3.5:
-    <<: *python3-template
-  python:3.4:
-    <<: *python3-template
-  python:3:
-    <<: *python3-template
-
-  python:2: &python2-template
-    docker:
-      - image: circleci/${CIRCLE_JOB}
+      - bootstrap
+      - test
+  python2:
     steps:
       - checkout
+      - env_info
       - run:
-          name: Make env
+          name: Prepare virtualenv
           command: |
             mkdir venv
             virtualenv venv
             . venv/bin/activate
-            make bootstrap
-            make test
-  python:2.7:
-    <<: *python2-template
+      - bootstrap
+      - test
+
+workflows:
+  version: 2
+  circleci-test:
+    jobs:
+      - python
+      - python-latest
+      - python-37
+      - python-36
+      - python-35
+      - python-34
+      - python-3
+      - python-27
+      - python-2
+
+jobs:
+  python:
+    docker: [ image: circleci/python ]
+    steps: [ python3 ]
+  python-latest:
+    docker: [ image: circleci/python:latest ]
+    steps: [ python3 ]
+  python-37:
+    docker: [ image: circleci/python:3.7 ]
+    steps: [ python3 ]
+  python-36:
+    docker: [ image: circleci/python:3.6 ]
+    steps: [ python3 ]
+  python-35:
+    docker: [ image: circleci/python:3.5 ]
+    steps: [ python3 ]
+  python-34:
+    docker: [ image: circleci/python:3.4 ]
+    steps: [ python3 ]
+  python-3:
+    docker: [ image: circleci/python:3 ]
+    steps: [ python3 ]
+
+  python-2:
+    docker: [ image: circleci/python:2 ]
+    steps: [ python2 ]
+  python-27:
+    docker: [ image: circleci/python:2.7 ]
+    steps: [ python2 ]
