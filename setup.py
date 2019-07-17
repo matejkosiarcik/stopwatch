@@ -10,7 +10,7 @@ def read(filename):
 setup(
     name="stopwatch-cli",
     version="0.3.0",
-    description="Time tracking cli app",
+    description="Simple cli stopwatch app",
     long_description=read("README.md"),
     long_description_content_type="text/markdown",
     license="MIT",

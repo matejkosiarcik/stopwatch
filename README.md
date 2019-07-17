@@ -1,6 +1,6 @@
 # Stopwatch
 
-> Stopwatch is a simple time tracking cli app
+> Simple cli stopwatch app
 
 ![Program screen](docs/example.png)
 
