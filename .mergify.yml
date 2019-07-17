@@ -1,14 +1,29 @@
+_hidden:
+  - &statuses
+    - status-success=stickler-ci
+    - status-success=continuous-integration/travis-ci/pr
+    - status-success=continuous-integration/travis-ci/push
+    - status-success=circleci-test
+    - status-success=Shippable
+
 pull_request_rules:
   - name: Automatic merge for Owner
     conditions:
+      <<: *statuses
       - author=matejkosiarcik
-      - status-success=stickler-ci
-      - status-success=continuous-integration/travis-ci/pr
-      - status-success=continuous-integration/travis-ci/push
-      - status-success=test # circle-ci
-      - status-success=Shippable
       - base=master
     actions:
       merge:
         method: merge
         strict: true
+      delete_head_branch: {}
+  - name: Automatic merge for dependabot
+    conditions:
+      <<: *statuses
+      - author=dependabot[bot]
+      - base=master
+    actions:
+      merge:
+        method: merge
+        strict: true
+      delete_head_branch: {}
