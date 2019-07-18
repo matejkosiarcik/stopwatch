@@ -1,11 +1,23 @@
 language: python
-sudo: false
+sudo:
+  -
+  # - false
+  # - true
+  # - required
+
+dist:
+  -
+  # - precise
+  # - trusty
+  # - xenial
 
 os:
   - linux
   - osx
+  # TODO: - windows
 
 python:
+  -
   - 2.6
   - 2.7
   - 3.2
