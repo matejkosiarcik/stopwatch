@@ -14,7 +14,7 @@ commands:
       - run:
           name: Prepare dependencies
           command: |
-            python -m pip install pytest
+            python -m pip install pytest==4.5.0
             python -m pytest --version
   test:
     steps:
