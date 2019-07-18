@@ -1,9 +1,18 @@
 version: 2.1
 
 commands:
+  env_info:
+    steps:
+        - run:
+            name: Print env info
+            command: |
+              uname -a
+              python --version
+              pip --version
   python3:
     steps:
       - checkout
+      - env_info
       - run:
           name: Run everything
           command: |
@@ -14,6 +23,7 @@ commands:
   python2:
     steps:
       - checkout
+      - env_info
       - run:
           name: Run everything
           command: |
