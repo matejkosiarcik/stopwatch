@@ -37,19 +37,33 @@ python:
 
 osx_image:
   -
+    language: generic
   - xcode11
+    language: generic
   - xcode10.2
+    language: generic
   - xcode10.1
+    language: generic
   - xcode10
+    language: generic
   - xcode9.4
+    language: generic
   - xcode9.3
+    language: generic
   - xcode9.2
+    language: generic
   - xcode9.1
+    language: generic
   - xcode9
+    language: generic
   - xcode8.3
+    language: generic
   - xcode8
+    language: generic
   - xcode7.3
+    language: generic
   - xcode6.4
+    language: generic
 
 env:
   - ""
