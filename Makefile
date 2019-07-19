@@ -8,7 +8,8 @@ bootstrap: FORCE
 	pip install -r 'requirements-dev.txt'
 
 test: unit_test
-	# TODO: add integration_test, docker_test, install_test
+
+all_test: unit_test integration_test docker_test install_test
 
 unit_test: FORCE
 	python -m pytest 'tests'
