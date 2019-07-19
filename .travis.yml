@@ -2,16 +2,17 @@ language: python
 os: linux
 
 sudo:
-  -
+  - # default
   # - false
   # - true
   # - required
 
 dist:
-  -
+  - # default
   # - precise
   # - trusty
   # - xenial
+  # - bionic
 
 python:
   - # default
