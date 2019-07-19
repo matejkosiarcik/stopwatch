@@ -1,15 +1,11 @@
-_hidden:
-  - &statuses
-    - status-success=stickler-ci
-    - status-success=continuous-integration/travis-ci/pr
-    - status-success=continuous-integration/travis-ci/push
-    - status-success=circleci-test
-    - status-success=Shippable
-
 pull_request_rules:
   - name: Automatic merge for Owner
     conditions:
-      - <<: *statuses
+      - status-success=stickler-ci
+      - status-success=continuous-integration/travis-ci/pr
+      - status-success=continuous-integration/travis-ci/push
+      - status-success=circleci-test
+      - status-success=Shippable
       - author=matejkosiarcik
       - base=master
     actions:
@@ -19,7 +15,11 @@ pull_request_rules:
       delete_head_branch: {}
   - name: Automatic merge for dependabot
     conditions:
-      - <<: *statuses
+      - status-success=stickler-ci
+      - status-success=continuous-integration/travis-ci/pr
+      - status-success=continuous-integration/travis-ci/push
+      - status-success=circleci-test
+      - status-success=Shippable
       - author=dependabot[bot]
       - base=master
     actions:
