@@ -63,7 +63,7 @@ matrix:
       sudo: true
 
     - python: 3.2
-      install: pip install pytest Cython
+      install: pip install pytest
 
     # run these jobs on all branches
     - os: osx
