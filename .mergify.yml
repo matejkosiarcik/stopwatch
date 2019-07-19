@@ -1,10 +1,9 @@
-_hidden:
-  - &statuses
-    - status-success=stickler-ci
-    - status-success=continuous-integration/travis-ci/pr
-    - status-success=continuous-integration/travis-ci/push
-    - status-success=circleci-test
-    - status-success=Shippable
+_hidden: &statuses
+  - status-success=stickler-ci
+  - status-success=continuous-integration/travis-ci/pr
+  - status-success=continuous-integration/travis-ci/push
+  - status-success=circleci-test
+  - status-success=Shippable
 
 pull_request_rules:
   - name: Automatic merge for Owner
