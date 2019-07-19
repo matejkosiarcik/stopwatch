@@ -55,8 +55,8 @@ matrix:
     - python: pypy3.5
 
   exclude:
-    - python: 3.5-dev
-      if: branch!=master
+    - if: branch!=master
+      python: 3.5-dev
 
   include:
     - python: 3.7
