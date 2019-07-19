@@ -54,6 +54,10 @@ matrix:
     - python: pypy2.7
     - python: pypy3.5
 
+  exclude:
+    - python: 3.5-dev
+      if: branch!=master
+
   include:
     - python: 3.7
       dist: xenial
