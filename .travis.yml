@@ -80,12 +80,12 @@ matrix:
       os: osx
       language: generic
       env: TOXENV=py2
-      if: branch=master
+      if: (branch=master) AND (type!=pull_request)
     - &mac-py3
       os: osx
       language: generic
       env: TOXENV=py3
-      if: branch=master
+      if: (branch=master) AND (type!=pull_request)
 
     # 10.14
     - { <<: *mac-py2, osx_image: xcode11 }
