@@ -1,2 +1,2 @@
-Cython==0.29.12
+Cython==0.29.13
 pytest==4.5.0
